@@ -1,7 +1,7 @@
 <template>
   <header>
     <b-navbar toggleable="lg" type="dark" variant="primary" class="header-navbar">
-      <b-navbar-brand href="#"
+      <b-navbar-brand to="/"
         ><font-awesome-icon :icon="['fas', 'suitcase']" /> EnjoyTrip</b-navbar-brand
       >
 
@@ -9,11 +9,15 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#"
+          <b-nav-item to="/planboard"
             ><font-awesome-icon :icon="['fas', 'pen']" fade /> 여행 계획</b-nav-item
           >
-          <b-nav-item href="#">후기 공유</b-nav-item>
-          <b-nav-item href="#">지유 게시판</b-nav-item>
+          <b-nav-item href="#"
+            ><font-awesome-icon :icon="['fas', 'people-arrows']" fade /> 후기 공유</b-nav-item
+          >
+          <b-nav-item href="#"
+            ><font-awesome-icon :icon="['fas', 'clipboard']" fade /> 자유 게시판</b-nav-item
+          >
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -48,7 +52,7 @@ export default {
 
 <style scoped>
 .header-navbar {
-  background-color: #155b8a !important;
+  background-color: #116fad !important;
   padding: 15px;
 }
 </style>

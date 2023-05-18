@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import AppHome from '../views/AppHome.vue'
+import AppPlanBoard from '../views/AppPlanBoard.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: AppHome
+  },
+  {
+    path: '/planboard',
+    name: 'planboard',
+    component: AppPlanBoard
   },
 ]
 
