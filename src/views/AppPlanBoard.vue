@@ -1,22 +1,17 @@
 <template>
   <b-container fluid class="outer-container">
     <div class="img-container">
-      <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="650px" />
+      <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="810" />
 
-      <b-row class="plan-container">
-        <b-row align-v="center" align-h="start">
-          <b-col md="auto">여행 계획을 세우고 사람들과 공유해요.</b-col>
-          <b-col><b-button>계획 세우기</b-button></b-col>
-          <b-col md="auto"
-            ><b-container class="card-container">
-              <h5>top3</h5>
-              <top-three-cards /> </b-container
-          ></b-col>
-        </b-row>
-        <!-- <b-container class="card-container">
-        <h5>top3</h5>
-        <top-three-cards />
-      </b-container> -->
+      <b-row class="plan-container" align-v="center" align-h="start">
+        <b-col md="auto">여행 계획을 세우고 사람들과 공유해요.</b-col>
+        <b-col md="auto"><b-button>계획 세우기</b-button></b-col>
+        <b-col md="auto">
+          <b-row class="card-container" align-h="center">
+            <h5>top3</h5>
+            <top-three-cards class="card-list" />
+          </b-row>
+        </b-col>
       </b-row>
 
       <b-container>
@@ -51,11 +46,13 @@ export default {
 .outer-container {
   padding-left: 0;
   padding-right: 0;
-  height: 1000px;
 }
 
 .top-img {
   opacity: 0.5;
+}
+
+.img-container {
   position: relative;
 }
 
@@ -63,7 +60,7 @@ export default {
   margin: 0;
   padding-top: 15px;
   position: absolute;
-  top: 12%;
+  top: 5%;
   left: 5%;
 }
 
@@ -73,9 +70,11 @@ h5 {
 
 .card-container {
   margin: 3%;
+  margin-right: 8%;
 }
 
-.img-container {
-  background-image: url("@/assets/img/main.png");
+.card-list {
+  margin-left: 5%;
+  margin-right: 5%;
 }
 </style>
