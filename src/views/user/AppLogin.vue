@@ -4,15 +4,15 @@
       <h1><strong>Login</strong></h1>
       <form action="">
         <div class="int-area">
-          <input type="text" v-model="id" autocomplete="off" required />
+          <input type="text" v-model="user.id" autocomplete="off" required />
           <label><font-awesome-icon :icon="['fas', 'user']" style="color: #4385b4" /> 이름</label>
         </div>
         <div class="int-area">
-          <input type="password" v-model="pw" autocomplete="off" required />
+          <input type="password" v-model="user.password" autocomplete="off" required />
           <label><font-awesome-icon :icon="['fas', 'key']" style="color: #4385b4" /> 비밀번호</label>
         </div>
         <div class="btn-area">
-          <button id="login-btn" type="submit" @click="doLogin">로그인</button>
+          <b-button id="login-btn" @click="doLogin">로그인</b-button>
         </div>
       </form>
       <div class="join-link">
@@ -33,23 +33,21 @@ export default {
   components: {},
   data() {
     return {
-      id: "",
-      pw: "",
+      user: {
+        id: null,
+        password: null,
+      },
     };
   },
   methods: {
-    ...mapActions(memberStore, ["userConfirm"]),
-    doLogin() {
-      let user = {
-        id: this.id,
-        password: this.pw,
-      };
-      console.log(user);
-      this.userConfirm(user);
+    ...mapActions(memberStore, ["userConfirm", "getUserInfo"]),
+    async doLogin() {
+      await this.userConfirm(this.user);
 
-      if (this.isLogin) {
-        alert("로그인 성공");
-        this.$router.push("/");
+      let token = sessionStorage.getItem("access-token");
+      if (this.getUserInfo) {
+        await this.getUserInfo(token);
+        this.$router.push({ name: "home" });
       } else {
         alert("로그인 실패");
       }

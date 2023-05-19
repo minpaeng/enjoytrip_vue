@@ -1,34 +1,40 @@
 <template>
   <header>
     <b-navbar fixed="top" toggleable="lg" type="dark" variant="primary" class="header-navbar">
-      <b-navbar-brand to="/" id="nav-title"
-        ><font-awesome-icon :icon="['fas', 'suitcase']" /> EnjoyTrip</b-navbar-brand
-      >
+      <b-navbar-brand to="/" id="nav-title"><font-awesome-icon :icon="['fas', 'suitcase']" /> EnjoyTrip</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/planboard"
-            ><font-awesome-icon :icon="['fas', 'pen']" fade /> 여행 계획</b-nav-item
-          >
-          <b-nav-item href="/shareboard"
-            ><font-awesome-icon :icon="['fas', 'people-arrows']" fade /> 후기 공유</b-nav-item
-          >
-          <b-nav-item to="/infoboard"
-            ><font-awesome-icon :icon="['fas', 'clipboard']" fade /> 자유 게시판</b-nav-item
-          >
+          <b-nav-item to="/planboard"><font-awesome-icon :icon="['fas', 'pen']" fade /> 여행 계획</b-nav-item>
+          <b-nav-item href="/shareboard"><font-awesome-icon :icon="['fas', 'people-arrows']" fade /> 후기 공유</b-nav-item>
+          <b-nav-item to="/infoboard"><font-awesome-icon :icon="['fas', 'clipboard']" fade /> 자유 게시판</b-nav-item>
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
+        <!-- after login -->
+        <b-navbar-nav class="ml-auto" v-if="userInfo">
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <strong>권민정 님</strong>
+              <strong>{{ userInfo.userId }} 님</strong>
             </template>
             <b-dropdown-item to="/mypage">마이페이지</b-dropdown-item>
-            <b-dropdown-item href="#">로그아웃</b-dropdown-item>
+            <b-dropdown-item @click.prevent="onClickLogout">로그아웃</b-dropdown-item>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+        <!-- before login -->
+        <b-navbar-nav class="ml-auto" v-else>
+          <b-nav-item-dropdown right>
+            <template #button-content>
+              <b-icon icon="people" font-scale="2"></b-icon>
+            </template>
+            <b-dropdown-item href="#">
+              <router-link :to="{ name: 'join' }" class="link"> <b-icon icon="person-circle"></b-icon> 회원가입 </router-link>
+            </b-dropdown-item>
+            <b-dropdown-item href="#">
+              <router-link :to="{ name: 'login' }" class="link"> <b-icon icon="key"></b-icon> 로그인 </router-link>
+            </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -37,16 +43,28 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "TheHeaderNavbar",
-  components: {},
   data() {
-    return {
-      message: "",
-    };
+    return {};
   },
-  created() {},
-  methods: {},
+  computed: {
+    ...mapState(memberStore, ["isLogin", "userInfo"]),
+    ...mapGetters(["checkUserInfo"]),
+  },
+  methods: {
+    ...mapActions(memberStore, ["userLogout"]),
+    onClickLogout() {
+      console.log(this.userInfo.userId);
+      this.userLogout(this.userInfo.userId);
+      sessionStorage.removeItem("access-token");
+      if (this.$route.path != "/") this.$router.push({ name: "home" });
+    },
+  },
 };
 </script>
 
