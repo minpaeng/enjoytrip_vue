@@ -9,7 +9,7 @@
         <b-col md="auto">
           <b-row class="card-container" align-h="center">
             <h5>top3</h5>
-            <top-three-cards class="card-list" />
+            <top-three-cards id="card-list" />
           </b-row>
         </b-col>
       </b-row>
@@ -73,7 +73,7 @@ h5 {
   margin-right: 8%;
 }
 
-.card-list {
+#card-list {
   margin-left: 5%;
   margin-right: 5%;
 }
