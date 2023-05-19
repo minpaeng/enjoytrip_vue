@@ -29,12 +29,8 @@
             <template #button-content>
               <b-icon icon="people" font-scale="2"></b-icon>
             </template>
-            <b-dropdown-item href="#">
-              <router-link :to="{ name: 'join' }" class="link"> <b-icon icon="person-circle"></b-icon> 회원가입 </router-link>
-            </b-dropdown-item>
-            <b-dropdown-item href="#">
-              <router-link :to="{ name: 'login' }" class="link"> <b-icon icon="key"></b-icon> 로그인 </router-link>
-            </b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'join' }" class="link"><b-icon icon="person-circle"></b-icon> 회원가입 </b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'login' }" class="link"><b-icon icon="key"></b-icon> 로그인 </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -83,5 +79,9 @@ export default {
 #nav-collapse {
   /* font-family: "Nanum Gothic Coding"; */
   font-family: "Jua";
+}
+
+.link {
+  text-decoration: none;
 }
 </style>
