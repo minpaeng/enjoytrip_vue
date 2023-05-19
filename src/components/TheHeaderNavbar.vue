@@ -1,7 +1,7 @@
 <template>
   <header>
     <b-navbar fixed="top" toggleable="lg" type="dark" variant="primary" class="header-navbar">
-      <b-navbar-brand to="/"
+      <b-navbar-brand to="/" id="nav-title"
         ><font-awesome-icon :icon="['fas', 'suitcase']" /> EnjoyTrip</b-navbar-brand
       >
 
@@ -51,8 +51,20 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
+
+#nav-title {
+  font-family: "Jua";
+}
+
 .header-navbar {
   background-color: #116fad !important;
   padding: 15px;
+}
+
+#nav-collapse {
+  /* font-family: "Nanum Gothic Coding"; */
+  font-family: "Jua";
 }
 </style>
