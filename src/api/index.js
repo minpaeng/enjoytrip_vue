@@ -14,4 +14,4 @@ function infoBoardInstance() {
 
 // }
 
-export { infoBoardInstance };
+export default { infoBoardInstance };
