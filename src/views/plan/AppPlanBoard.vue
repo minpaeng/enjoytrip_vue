@@ -1,9 +1,11 @@
 <template>
   <b-container fluid class="outer-container">
     <b-row class="plan-container" align-v="center" align-h="start">
-      <b-col md="auto"><b-nav-item href="/plancreate">
+      <b-col md="auto">
+        <b-nav-item to="/plancreate">
           <b-button class="plan-button">계획 세우기</b-button>
-        </b-nav-item></b-col>
+        </b-nav-item>
+      </b-col>
       <b-col md="auto">
         <b-row class="card-container" align-h="center">
           <card-item v-for="index in 10" :key="index" class="plan-card" />
@@ -36,34 +38,27 @@ export default {
   padding-top: 71px;
 }
 
-.top-img {
-  opacity: 0.5;
-}
-
-.img-container {
-  position: relative;
-}
-
-.plan-container {
-  position: relative;
-  margin: 0;
-  padding-top: 15px;
-  width: 100%;
-  height: 1000px;
-  background: url("@/assets/img/main.png");
-  background-size: cover;
-}
-
-.plan-container::before {
+.outer-container::before {
   content: "";
   opacity: 0.5;
-  /* background-attachment: fixed; */
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  position: absolute;
+  position: fixed;
   background-color: #ffffff;
+  background: url("@/assets/img/main.png");
+  background-size: cover;
+}
+
+.plan-container {
+  /* position: relative; */
+  margin: 0;
+  padding-top: 15px;
+  width: 100%;
+  height: 1000px;
+  /* background: url("@/assets/img/main.png");
+  background-size: cover; */
 }
 
 h5 {
@@ -99,5 +94,9 @@ h5 {
   background: rgba(50, 92, 156, 0.89);
   border: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.footer {
+  display: none !important;
 }
 </style>
