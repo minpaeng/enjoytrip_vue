@@ -7,6 +7,8 @@
         img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
         img-top
+        img-width="200"
+        img-height="300"
       >
         <b-card-text> This content is a little bit longer. </b-card-text>
         <template #footer>
@@ -20,6 +22,8 @@
         img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
         img-top
+        img-width="200"
+        img-height="300"
       >
         <b-card-text>
           This card has supporting text below as a natural lead-in to additional content.
@@ -35,6 +39,8 @@
         img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
         img-top
+        img-width="200"
+        img-height="300"
       >
         <b-card-text>
           This is a wider card with supporting text below as a natural lead-in to additional
