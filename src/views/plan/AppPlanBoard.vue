@@ -1,7 +1,9 @@
 <template>
   <b-container fluid class="outer-container">
     <b-row class="plan-container" align-v="center" align-h="start">
-      <b-col md="auto"><b-button class="plan-button">계획 세우기</b-button></b-col>
+      <b-col md="auto"><b-nav-item href="/plancreate">
+          <b-button class="plan-button">계획 세우기</b-button>
+        </b-nav-item></b-col>
       <b-col md="auto">
         <b-row class="card-container" align-h="center">
           <card-item v-for="index in 10" :key="index" class="plan-card" />
