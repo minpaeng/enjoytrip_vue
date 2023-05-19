@@ -4,19 +4,15 @@
       <h1><strong>Login</strong></h1>
       <form action="">
         <div class="int-area">
-          <input type="text" name="id" id="id" autocomplete="off" required />
-          <label for="id"
-            ><font-awesome-icon :icon="['fas', 'user']" style="color: #4385b4" /> 이름</label
-          >
+          <input type="text" v-model="id" autocomplete="off" required />
+          <label><font-awesome-icon :icon="['fas', 'user']" style="color: #4385b4" /> 이름</label>
         </div>
         <div class="int-area">
-          <input type="password" name="pw" id="pw" autocomplete="off" required />
-          <label for="pw"
-            ><font-awesome-icon :icon="['fas', 'key']" style="color: #4385b4" /> 비밀번호</label
-          >
+          <input type="password" v-model="pw" autocomplete="off" required />
+          <label><font-awesome-icon :icon="['fas', 'key']" style="color: #4385b4" /> 비밀번호</label>
         </div>
         <div class="btn-area">
-          <button id="login-btn" type="submit">로그인</button>
+          <button id="login-btn" type="submit" @click="doLogin">로그인</button>
         </div>
       </form>
       <div class="join-link">
@@ -28,16 +24,40 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "AppLogin",
   components: {},
   data() {
     return {
-      message: "",
+      id: "",
+      pw: "",
     };
   },
-  created() {},
-  methods: {},
+  methods: {
+    ...mapActions(memberStore, ["userConfirm"]),
+    doLogin() {
+      let user = {
+        id: this.id,
+        password: this.pw,
+      };
+      console.log(user);
+      this.userConfirm(user);
+
+      if (this.isLogin) {
+        alert("로그인 성공");
+        this.$router.push("/");
+      } else {
+        alert("로그인 실패");
+      }
+    },
+  },
+  computed: {
+    ...mapState(memberStore, ["isLogin"]),
+  },
 };
 </script>
 

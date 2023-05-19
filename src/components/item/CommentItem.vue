@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import infoBoardInstance from "@/api/index";
-
 export default {
   name: "CommentItem",
   components: {},
@@ -23,15 +21,15 @@ export default {
   },
   created() {},
   methods: {
-    async deleteComment() {
-      try {
-        console.log(this.comment.id);
-        await infoBoardInstance.delete(`/information/comment/${this.comment.id}`);
-        window.location.reload();
-      } catch (err) {
-        console.log(`댓글 삭제 오류: ${err}`);
-      }
-    },
+    // async deleteComment() {
+    //   try {
+    //     console.log(this.comment.id);
+    //     await infoBoardInstance.delete(`/information/comment/${this.comment.id}`);
+    //     window.location.reload();
+    //   } catch (err) {
+    //     console.log(`댓글 삭제 오류: ${err}`);
+    //   }
+    // },
   },
 };
 </script>

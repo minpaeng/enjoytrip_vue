@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function infoBoardInstance() {
+function apiInstance() {
   const instance = axios.create({
     baseURL: "http://localhost/api",
     headers: {
@@ -10,8 +10,4 @@ function infoBoardInstance() {
   return instance;
 }
 
-// function planInstance() {
-
-// }
-
-export default { infoBoardInstance };
+export { apiInstance };
