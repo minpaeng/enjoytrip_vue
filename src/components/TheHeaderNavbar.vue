@@ -59,7 +59,6 @@ export default {
   methods: {
     ...mapActions(memberStore, ["userLogout"]),
     onClickLogout() {
-      console.log(this.userInfo.userId);
       this.userLogout(this.userInfo.userId);
       sessionStorage.removeItem("access-token");
       if (this.$route.path != "/") this.$router.push({ name: "home" });
