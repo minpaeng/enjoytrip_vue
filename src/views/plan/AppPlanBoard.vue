@@ -1,9 +1,11 @@
 <template>
   <b-container fluid class="outer-container">
     <b-row class="plan-container" align-v="center" align-h="start">
-      <b-col md="auto"><b-nav-item href="/plancreate">
+      <b-col md="auto">
+        <router-link to="/plancreate">
           <b-button class="plan-button">계획 세우기</b-button>
-        </b-nav-item></b-col>
+        </router-link>
+      </b-col>
       <b-col md="auto">
         <b-row class="card-container" align-h="center">
           <card-item v-for="index in 10" :key="index" class="plan-card" />
@@ -36,18 +38,10 @@ export default {
   padding-top: 71px;
 }
 
-.top-img {
-  opacity: 0.5;
-}
-
-.img-container {
-  position: relative;
-}
-
 .plan-container {
   position: relative;
   margin: 0;
-  padding-top: 15px;
+  padding-top: 30px;
   width: 100%;
   height: 1000px;
   background: url("@/assets/img/main.png");
@@ -57,7 +51,6 @@ export default {
 .plan-container::before {
   content: "";
   opacity: 0.5;
-  /* background-attachment: fixed; */
   top: 0px;
   left: 0px;
   right: 0px;
@@ -66,28 +59,14 @@ export default {
   background-color: #ffffff;
 }
 
-h5 {
-  margin-bottom: 20px;
-}
-
 .card-container {
   margin: 3%;
   margin-right: 8%;
 }
 
-#card-list {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-#cards {
-  margin: 0;
-  padding: 0;
-  margin-top: 30px;
-}
-
 .plan-button,
 .plan-button:focus {
+  margin-left: 10px;
   background-color: rgba(69, 113, 180, 0.89);
   border: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
