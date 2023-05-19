@@ -9,6 +9,8 @@ import InformationModify from "@/views/info/InformationModify";
 import InformationWrite from "@/views/info/InformationWrite";
 import AppMypage from "@/views/mypage/AppMypage";
 import PlanCreate from "@/views/plan/PlanCreate";
+import AppLogin from "@/views/user/AppLogin";
+import AppJoin from "@/views/user/AppJoin";
 
 Vue.use(VueRouter)
 
@@ -58,6 +60,16 @@ const routes = [
     name: "mypage",
     component: AppMypage,
   },
+  {
+    path: "/login",
+    name: "login",
+    component: AppLogin
+  },
+  {
+    path: "/join",
+    name: "join",
+    component: AppJoin
+  }
 ]
 
 const router = new VueRouter({

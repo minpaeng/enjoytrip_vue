@@ -4,18 +4,20 @@
       <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="810" />
 
       <div id="mypage-container" align-v="center" align-h="start">
-        <h1><strong>기본 정보</strong></h1>
+        <h1 style="font-family: 'Nanum Gothic Coding', sans-serif"><strong>기본 정보</strong></h1>
 
         <div id="private-info-box">
           <div class="box">
             <img class="profile" src="@/assets/img/main_2.png" />
           </div>
-          <div id="private-info">
+          <div id="private-info" style="font-family: 'Jua', sans-serif">
             <div><span>이름</span><span> 권민정</span></div>
             <div><span>이메일</span><span> sample@ssafy.com</span></div>
             <div><span>이름</span><span> 권민정</span></div>
             <div><span>이름</span><span> 권민정</span></div>
-            <b-button class="mypage-button">정보 수정</b-button>
+            <b-button class="mypage-button" style="font-family: 'Nanum Gothic Coding', sans-serif"
+              >정보 수정</b-button
+            >
           </div>
         </div>
       </div>
@@ -36,6 +38,9 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
+
 .outer-container {
   padding-left: 0;
   padding-right: 0;
@@ -85,6 +90,7 @@ export default {
 }
 
 .mypage-button {
+  padding: 3px;
   margin: 10px;
   background: rgba(117, 168, 211, 0.89);
   background-color: rgba(117, 168, 211, 0.89);
