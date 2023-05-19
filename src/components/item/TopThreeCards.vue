@@ -2,7 +2,7 @@
   <div>
     <b-card-group deck>
       <b-card
-        class="card-item"
+        class="card-item-top3"
         title="Title"
         img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
@@ -17,7 +17,7 @@
       </b-card>
 
       <b-card
-        class="card-item"
+        class="card-item-top3"
         title="Title"
         img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
@@ -34,7 +34,7 @@
       </b-card>
 
       <b-card
-        class="card-item"
+        class="card-item-top3"
         title="Title"
         img-src="https://picsum.photos/300/300/?image=41"
         img-alt="Image"
@@ -69,7 +69,8 @@ export default {
 </script>
 
 <style scoped>
-.card-item {
+.card-item-top3 {
   padding: 1%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

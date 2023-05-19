@@ -19,7 +19,7 @@
       <b-row id="main-plan-container" align-h="center">
         <b-row align-v="center" align-h="start">
           <b-col md="auto">여행 계획을 세우고 사람들과 공유해요.</b-col>
-          <b-col><b-button>계획 세우기</b-button></b-col>
+          <b-col><b-button class="plan-button">계획 세우기</b-button></b-col>
         </b-row>
 
         <top-three-cards class="top3-cards" />
@@ -73,5 +73,20 @@ export default {
   padding: 0;
   margin-top: 4%;
   margin-bottom: 4%;
+}
+
+.plan-button,
+.plan-button:focus {
+  background-color: rgba(69, 113, 180, 0.89);
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.plan-button:active,
+.plan-button:hover {
+  background: rgba(50, 92, 156, 0.89);
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 </style>
