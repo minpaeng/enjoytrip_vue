@@ -37,8 +37,8 @@ export default {
 
 <style scoped>
 .card {
-  height: 400px;
-  width: 350px;
+  height: 350px;
+  width: 290px;
   border-radius: 15px;
   display: inline-block;
   margin-top: 30px;
@@ -68,7 +68,7 @@ export default {
   height: 100px;
 }
 
-.card-header-is_closed {
+/* .card-header-is_closed {
   background-color: #318aef;
   color: #fff;
   font-weight: bold;
@@ -79,5 +79,5 @@ export default {
   font-weight: bold;
   padding: 10px 10px;
   line-height: 20px;
-}
+} */
 </style>

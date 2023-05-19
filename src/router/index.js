@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AppHome from '@/views/AppHome.vue'
-import AppPlanBoard from '@/views/AppPlanBoard.vue'
-import AppInfoBoard from '@/views/AppInfoBoard'
-import InformationDetail from "@/views/InformationDetail.vue";
-import InformationModify from "@/views/InformationModify.vue";
-import InformationWrite from "@/views/InformationWrite.vue";
-import AppMypage from "@/views/AppMypage";
+import AppPlanBoard from "@/views/plan/AppPlanBoard"
+import AppShareBoard from '@/views/share/AppShareBoard.vue'
+import AppInfoBoard from '@/views/info/AppInfoBoard'
+import InformationDetail from "@/views/info/InformationDetail.vue";
+import InformationModify from "@/views/info/InformationModify.vue";
+import InformationWrite from "@/views/info/InformationWrite.vue";
+import AppMypage from "@/views/mypage/AppMypage";
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ const routes = [
     path: '/planboard',
     name: 'planboard',
     component: AppPlanBoard
+  },
+  {
+    path: '/shareboard',
+    name: 'shareboard',
+    component: AppShareBoard
   },
   {
     path: '/infoboard',

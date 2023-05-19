@@ -51,6 +51,8 @@ export default {
 .outer-container {
   padding-left: 0;
   padding-right: 0;
+  margin-top: 70px;
+  padding-top: 0;
 }
 
 #main-img {

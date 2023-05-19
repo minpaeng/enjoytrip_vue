@@ -1,6 +1,6 @@
 <template>
   <header>
-    <b-navbar toggleable="lg" type="dark" variant="primary" class="header-navbar">
+    <b-navbar fixed="top" toggleable="lg" type="dark" variant="primary" class="header-navbar">
       <b-navbar-brand to="/"
         ><font-awesome-icon :icon="['fas', 'suitcase']" /> EnjoyTrip</b-navbar-brand
       >
@@ -12,7 +12,7 @@
           <b-nav-item to="/planboard"
             ><font-awesome-icon :icon="['fas', 'pen']" fade /> 여행 계획</b-nav-item
           >
-          <b-nav-item href="#"
+          <b-nav-item href="/shareboard"
             ><font-awesome-icon :icon="['fas', 'people-arrows']" fade /> 후기 공유</b-nav-item
           >
           <b-nav-item to="/infoboard"

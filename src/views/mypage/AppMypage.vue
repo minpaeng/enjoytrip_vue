@@ -58,12 +58,16 @@ export default {
   position: absolute;
   top: 1%;
   left: 5%;
+  width: 600px;
+  height: 320px;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.39);
 }
 
 #private-info-box {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   margin: 20px;
   padding: 10px;
 }
@@ -101,5 +105,6 @@ export default {
 
 #private-info {
   margin: 20px;
+  margin-left: 50px;
 }
 </style>

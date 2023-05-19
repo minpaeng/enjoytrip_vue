@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import CommentItem from "@/components/comment/CommentItem.vue";
+import CommentItem from "@/components/item/CommentItem.vue";
 import infoBoardInstance from "@/api/index";
 
 export default {
