@@ -97,17 +97,19 @@ const memberStore = {
         userid,
         ({ data }) => {
           if (data.message === "success") {
-            commit("SET_IS_LOGIN", false);
-            commit("SET_USER_INFO", null);
-            commit("SET_IS_VALID_TOKEN", false);
+            console.log(`${userid} 로그아웃 성공`);
           } else {
-            console.log("유저 정보 없음!!!!");
+            console.log("유저 정보 없음");
           }
         },
         (error) => {
           console.log(error);
         }
       );
+      commit("SET_IS_LOGIN", false);
+      commit("SET_USER_INFO", null);
+      commit("SET_IS_VALID_TOKEN", false);
+      alert("로그아웃 완료");
     },
   },
 };
