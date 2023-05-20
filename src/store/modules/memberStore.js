@@ -54,10 +54,25 @@ const memberStore = {
         },
         (error) => {
           console.log(error);
+          alert("로그인 실패");
         }
       );
     },
-    async getUserInfo({ commit, dispatch }, token) {
+    // async userJoin({ commit }, user) {
+    //   await join(
+    //     user,
+    //     (response) => {
+    //       if (response.data.message === "success") {
+    //         console.log("회원가입 성공");
+    //       }
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //       alert("회원가입 실패");
+    //     }
+    //   );
+    // },
+    async getUserInfo({ commit }, token) {
       let decodeToken = jwtDecode(token);
       //   console.log(`2. getUserInfo() decodeToken :: ${decodeToken.sub}`);
       await findById(
@@ -72,7 +87,8 @@ const memberStore = {
         async (error) => {
           console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
-          await dispatch("tokenRegeneration");
+          //   await dispatch("tokenRegeneration");
+          alert("토큰 만료");
         }
       );
     },

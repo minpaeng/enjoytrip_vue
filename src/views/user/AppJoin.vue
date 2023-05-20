@@ -8,46 +8,28 @@
             <i class="bi bi-patch-question me-1"></i>
             <label for="user-id" class="form-label">아이디</label>
           </div>
-          <input
-            type="text"
-            class="form-control"
-            id="user-id"
-            name="user-id"
-            placeholder="아이디"
-          />
+          <input type="text" class="form-control" id="user-id" name="user-id" v-model="user.userId" placeholder="아이디" />
         </div>
         <div class="row m-1 mb-3">
           <div class="d-flex justify-content-start ps-0">
             <i class="bi bi-patch-question me-1"></i>
             <label for="name" class="form-label">이름</label>
           </div>
-          <input type="text" class="form-control" id="name" name="name" placeholder="이름" />
+          <input type="text" class="form-control" id="name" name="name" v-model="user.userName" placeholder="이름" />
         </div>
         <div class="row m-1 mb-3">
           <div class="d-flex justify-content-start ps-0">
             <i class="bi bi-patch-question me-1"></i>
             <label for="password" class="form-label">비밀번호</label>
           </div>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            placeholder="비밀번호"
-            name="password"
-          />
+          <input type="password" class="form-control" id="password" v-model="user.userPassword" placeholder="비밀번호" name="password" />
         </div>
         <div class="row m-1 mb-3">
           <div class="d-flex justify-content-start ps-0">
             <i class="bi bi-patch-question me-1"></i>
             <label for="password-check" class="form-label">비밀번호확인</label>
           </div>
-          <input
-            type="password"
-            class="form-control"
-            id="password-check"
-            placeholder="비밀번호확인"
-            name="password-check"
-          />
+          <input type="password" class="form-control" id="password-check" placeholder="비밀번호확인" name="password-check" />
         </div>
         <div class="row m-1 mb-3">
           <div class="d-flex justify-content-start ps-0">
@@ -55,9 +37,9 @@
             <label for="email" class="form-label">이메일</label>
           </div>
           <div class="d-flex justify-content-start ps-0">
-            <input type="email" class="form-control" id="email" placeholder="이메일" name="email" />
+            <input type="email" class="form-control" id="email" placeholder="이메일" name="email" v-model="user.emailId" />
             <span class="ms-2 me-2">@</span>
-            <select id="domain" class="form-select" name="domain" aria-label=".form-select domain">
+            <select id="domain" class="form-select" name="domain" aria-label=".form-select domain" v-model="user.emailDomain">
               <option selected>도메인 선택</option>
               <option value="ssafy.com">ssafy.com</option>
               <option value="gmail.com">gmail.com</option>
@@ -66,7 +48,7 @@
           </div>
         </div>
         <div class="btn-area">
-          <b-button id="join-btn" type="submit">회원가입</b-button>
+          <b-button id="join-btn" @click="doJoin">회원가입</b-button>
         </div>
       </b-form>
     </section>
@@ -74,14 +56,33 @@
 </template>
 
 <script>
+import { join } from "@/api/member";
+
 export default {
   name: "AppJoin",
-  components: {},
   data() {
-    return {};
+    return {
+      user: {
+        userId: null,
+        userName: null,
+        userPassword: null,
+        emailId: null,
+        emailDomain: null,
+      },
+    };
   },
-  created() {},
-  methods: {},
+  methods: {
+    async doJoin() {
+      await join(
+        this.user,
+        () => {
+          alert("회원가입 완료");
+          this.$router.push({ name: "home" });
+        },
+        () => alert("회원가입 실패")
+      );
+    },
+  },
 };
 </script>
 
@@ -129,27 +130,6 @@ export default {
   top: 15px;
   font-size: 18px;
   transition: top 0.5s ease;
-}
-
-.int-area label.warning {
-  color: red !important;
-  animation: warning 0.3s ease;
-  animation-iteration-count: 3;
-}
-
-@keyframes warning {
-  0% {
-    transform: translateX(-8px);
-  }
-  25% {
-    transform: translateX(8px);
-  }
-  50% {
-    transform: translateX(-8px);
-  }
-  75% {
-    transform: translateX(8px);
-  }
 }
 
 .int-area input:focus + label,
