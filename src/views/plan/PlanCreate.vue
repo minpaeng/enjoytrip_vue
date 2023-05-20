@@ -10,7 +10,7 @@
   >
     <!-- 중앙 center content end -->
     <div>
-      <div class="row-md-8" style="margin: 10px">
+      <div class="row-md-8" style="margin-top: 100px">
         <div class="row" style="font-family: 'Black Han Sans', sans-serif">
           <div class="col-md-4" style="overflow: auto; max-height: 660px">
             <h2 class="map-title" style="position: sticky">추천 여행지</h2>
@@ -563,10 +563,8 @@ export default {
         if (attraction.contentId === data.attractionDto.contentId) {
           this.isOpen = true;
 
-          console.log("Going in");
           while (this.waitModal === true) {}
-          console.log("Going out");
-
+          
           if (this.forceInsertClick === false) return;
         }
       }
