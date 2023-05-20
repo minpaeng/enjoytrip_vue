@@ -1,7 +1,7 @@
 <template>
   <!-- 중앙 content start -->
-  <b-container fluid>
-    <b-row>
+  <b-container>
+    <!-- <b-row> -->
       <b-row class="text-center">
         <div class="col m-5">
           <h1
@@ -10,14 +10,16 @@
               text-decoration-line: underline;
               text-decoration-thickness: 6px;
               text-decoration-color: rgb(189, 201, 255);
+              margin-top: 100px;
             "
           >
             공지사항
           </h1>
         </div>
       </b-row>
-      <b-row class="justify-content-between ps-2 pe-2 ms-2 ms-2">
-        <b-col md="auto">
+      <!-- <b-row class="justify-content-between ps-2 pe-2 ms-2 ms-2"> -->
+      <div class = "d-flex justify-content-between">
+        <b-col md="auto" class="d-flex align-items-center mb-3">
           <a
             type="button"
             id="write-button"
@@ -29,6 +31,7 @@
             글쓰기
           </a>
         </b-col>
+        
         <div class="col-auto">
           <form id="form-search">
             <input type="hidden" name="pgno" value="1" />
@@ -64,8 +67,8 @@
             </div>
           </form>
         </div>
-
-        <div class="row mt-3">
+      </div>
+        <div>
           <div class="d-flex justify-content-center">
             <table class="table table-striped table-bordered text-center mb-5">
               <thead>
@@ -94,27 +97,27 @@
           </div>
           <!-- 컴포넌트로 분리해서 다른 게시판에서도 재사용하도록 수정해야함 -->
           <div class="post-nav">
-            <ul class="pagination justify-content-center">
-              <li class="page-item" data-pg="1">
-                <a href="#" class="page-link" @click="changePage(1)">최신</a>
-              </li>
-              <li class="page-item" data-pg="currentPage">
-                <a href="#" class="page-link" @click="canGoPrePage">이전</a>
-              </li>
-              <li v-for="index in pageCount" :key="index" class="page-item" :data-pg="index">
-                <a href="#" class="page-link" @click="changePage(`${index}`)">{{ index }}</a>
-              </li>
-              <li class="page-item" data-pg="currentPage">
-                <a href="#" class="page-link" @click="canGoNextPage">다음</a>
-              </li>
-              <li class="page-item" data-pg="pageCount">
-                <a href="#" class="page-link" @click="changePage(pageCount)">마지막</a>
-              </li>
-            </ul>
-          </div>
+  <ul class="pagination justify-content-center">
+    <li class="page-item" data-pg="1">
+      <a href="#" class="page-link" @click="changePage(1)">최신</a>
+    </li>
+    <li class="page-item" data-pg="prev">
+      <a href="#" class="page-link" @click="canGoPrePage">이전</a>
+    </li>
+    <li v-for="index in pageCount" :key="index" class="page-item" :class="{ 'active': pgno === index }" :data-pg="index">
+      <a href="#" class="page-link" @click="changePage(index)">{{ index }}</a>
+    </li>
+    <li class="page-item" data-pg="next">
+      <a href="#" class="page-link" @click="canGoNextPage">다음</a>
+    </li>
+    <li class="page-item" data-pg="pageCount">
+      <a href="#" class="page-link" @click="changePage(pageCount)">마지막</a>
+    </li>
+  </ul>
+</div>
         </div>
-      </b-row>
-    </b-row>
+      <!-- </b-row> -->
+    <!-- </b-row> -->
 
     <div class="row"></div>
   </b-container>
@@ -146,7 +149,7 @@ export default {
 
         let uri = `http://localhost/api/information/list?pgno=${pgno}&key=${key}&word=${word}`;
         let response = await axios.get(uri);
-
+        
         this.pageCount = response.data.pageCount;
         this.list = response.data.list;
 
@@ -175,4 +178,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .active {
+    color: blue;
+  }
+</style>
