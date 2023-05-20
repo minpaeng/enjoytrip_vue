@@ -11,13 +11,19 @@
             <img class="profile" src="@/assets/img/main_2.png" />
           </div>
           <div id="private-info" style="font-family: 'Jua', sans-serif">
-            <div><span>이름</span><span> 권민정</span></div>
-            <div><span>이메일</span><span> sample@ssafy.com</span></div>
-            <div><span>이름</span><span> 권민정</span></div>
-            <div><span>이름</span><span> 권민정</span></div>
-            <b-button class="mypage-button" style="font-family: 'Nanum Gothic Coding', sans-serif"
-              >정보 수정</b-button
-            >
+            <div>
+              <span>아이디</span><span> {{ userInfo.userId }}</span>
+            </div>
+            <div>
+              <span>이름</span><span> {{ userInfo.userName }}</span>
+            </div>
+            <div>
+              <span>이메일</span><span> {{ userInfo.emailId }}@{{ userInfo.emailDomain }}</span>
+            </div>
+            <div>
+              <span>가입일</span><span> {{ dateFormat }}</span>
+            </div>
+            <b-button class="mypage-button" style="font-family: 'Nanum Gothic Coding', sans-serif">정보 수정</b-button>
           </div>
         </div>
       </div>
@@ -26,6 +32,10 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+
+const memberStore = "memberStore";
+
 export default {
   name: "AppMypage",
   components: {},
@@ -34,6 +44,13 @@ export default {
   },
   created() {},
   methods: {},
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapGetters(memberStore, ["checkUserInfo"]),
+    dateFormat() {
+      return this.userInfo.joinDate.split(" ")[0];
+    },
+  },
 };
 </script>
 
