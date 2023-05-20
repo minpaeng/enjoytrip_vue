@@ -17,6 +17,7 @@ async function findById(userid, success, fail) {
 }
 
 async function logout(userid, success, fail) {
+  api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
   await api.get(`/member/logout/${userid}`).then(success).catch(fail);
 }
 
