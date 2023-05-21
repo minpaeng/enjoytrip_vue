@@ -20,7 +20,7 @@
         <b-row align-h="center">
           <template>
             <div class="overflow-auto">
-              <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" use-router></b-pagination-nav>
+              <b-pagination-nav :link-gen="linkGen" :number-of-pages="pageCount" use-router></b-pagination-nav>
             </div>
           </template>
         </b-row>
@@ -44,6 +44,7 @@ export default {
   data() {
     return {
       page: 1,
+      pageCount: 1,
       plans: [],
     };
   },
@@ -52,19 +53,24 @@ export default {
     console.log(queryPgno);
     if (typeof queryPgno == undefined) this.page = 1;
     else this.page = Number(queryPgno);
-  },
-  mounted() {
     findPlansByuserId(
       this.userInfo.userId,
+      this.page,
       ({ data }) => {
-        this.plans = data.data;
+        this.plans = data.data.plans;
+        this.pageCount = data.data.totalCount;
       },
       () => console.log("조회 실패")
     );
   },
   methods: {
     linkGen(pageNum) {
-      return `?pgno=${pageNum}`;
+      return {
+        path: "/planboard",
+        query: {
+          pgno: pageNum,
+        },
+      };
     },
   },
   computed: {
@@ -74,10 +80,13 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
 .outer-container {
   padding-left: 0;
   padding-right: 0;
   padding-top: 71px;
+  font-family: Jua;
 }
 
 .plan-container {
