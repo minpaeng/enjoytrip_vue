@@ -23,7 +23,7 @@
       
       <div class="d-flex justify-content-end">
         <button type="button" id="btn-list" class="btn btn-outline-primary mb-3" @click="navTo('infoboard')">글목록</button>
-        <button type="button" id="btn-mv-modify" class="btn btn-outline-success mb-3 ms-1" @click="navTo('infowrite')">글수정</button>
+        <button type="button" id="btn-mv-modify" class="btn btn-outline-success mb-3 ms-1" @click="navTo('modify')">글수정</button>
         <button type="button" id="btn-delete" class="btn btn-outline-danger mb-3 ms-1" @click="deleteInfoPost">글삭제</button>
       </div>
       <comment-comp :comments="comments" :id="String(id)"></comment-comp>
@@ -49,16 +49,11 @@ export default {
     };
   },
   created() {
-    this.id = this.$route.params.no;
-    //this.getInfoPost();
-    //this.getInfoComments();
   },
   mounted() {
-    console.log("Mounted");
     this.id = this.$route.params.no;
     this.getInfoPost();
     this.getInfoComments();
-    console.log(this.comments);
   },
   methods: {
     async getInfoPost() {
@@ -74,9 +69,9 @@ export default {
 
     async deleteInfoPost() {
       try {
-        await apiInstance.delete(`/information/delete/${this.id}`);
+        await apiInstance().delete(`/information/delete/${this.id}`);
         alert("삭제 완료");
-        this.$router.push("/information");
+        this.$router.push("/infoboard");
       } catch (err) {
         console.log(`공지사항 게시글 삭제 실패: ${err}`);
       }
@@ -90,8 +85,6 @@ export default {
         );
         this.commentPageCount = response.data.pageCount;
         this.comments = response.data.list;
-        console.log("댓글");
-        console.log(this.comments);
       } catch (err) {
         console.log(`댓글 목록 조회 실패: ${err}`);
       }

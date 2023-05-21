@@ -34,9 +34,12 @@
         <div class="row">
           <div class="d-lg-block col-3"></div>
           <div class="col-lg-6">
-            <div class="d-flex ps-0">
+            <div class="d-flex ps-0 justify-content-center">
               <button type="button" id="btn-modify-post" class="col-md-3 col-lg-2 btn btn-primary btn-sm me-1" @click="modifyInfoPost">글 수정</button>
-              <button type="button" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm post-cancel">목록</button>
+              <!-- <button type="button" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm post-cancel">목록</button> -->
+              <router-link to="/infoboard?pgno=1" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm">
+              목록
+              </router-link>
             </div>
           </div>
         </div>
@@ -46,7 +49,7 @@
 </template>
 
 <script>
-// import infoBoardInstance from "@/api/index";
+import {apiInstance} from "@/api/index";
 
 export default {
   name: "InformationModify",
@@ -62,24 +65,24 @@ export default {
     this.getInfoPost();
   },
   methods: {
-    // async getInfoPost() {
-    //   try {
-    //     let response = await infoBoardInstance.get(`/information/detail/${this.id}`);
-    //     console.log(response.data);
-    //     this.post = response.data;
-    //   } catch (err) {
-    //     console.log(`공지사항 게시글 조회 실패: ${err}`);
-    //   }
-    // },
-    // async modifyInfoPost() {
-    //   try {
-    //     await infoBoardInstance.put(`/information/modify/${this.id}`, this.post);
-    //     alert("수정 완료");
-    //     this.$router.push("/information");
-    //   } catch (err) {
-    //     console.log(`공지사항 게시글 수정 실패: ${err}`);
-    //   }
-    // },
+    async getInfoPost() {
+      try {
+        let response = await apiInstance().get(`/information/detail/${this.id}`);
+        console.log(response.data);
+        this.post = response.data;
+      } catch (err) {
+        console.log(`공지사항 게시글 조회 실패: ${err}`);
+      }
+    },
+    async modifyInfoPost() {
+      try {
+        await apiInstance().put(`/information/modify/${this.id}`, this.post);
+        alert("수정 완료");
+        this.$router.push("/infoboard");
+      } catch (err) {
+        console.log(`공지사항 게시글 수정 실패: ${err}`);
+      }
+    },
   },
 };
 </script>

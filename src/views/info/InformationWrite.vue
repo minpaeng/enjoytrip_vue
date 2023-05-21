@@ -35,24 +35,26 @@
               ></textarea>
             </div>
           </div>
-          <div class="row">
+        </div>
+        <div class="row mt-3 justify-content-center">
             <div class="d-lg-block col-3"></div>
             <div class="col-lg-6">
               <div class="d-flex ps-0">
                 <button type="button" id="btn-create-post" class="col-md-3 col-lg-2 btn btn-primary btn-sm me-1" @click="writeInfoPost">글 작성</button>
-                <button type="button" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm post-cancel" @click="$router.push('/information?pgno=1')">
+                <button type="button" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm post-cancel" @click="$router.push('/infoboard?pgno=1')">
                   목록
                 </button>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {apiInstance} from "@/api/index";
+
 export default {
   name: "InformationWrite",
   components: {},
@@ -66,15 +68,15 @@ export default {
   },
   created() {},
   methods: {
-    // async writeInfoPost() {
-    //   try {
-    //     await infoBoardInstance.post("/information/write", this.post);
-    //     alert("작성 완료");
-    //     this.$router.push("/information");
-    //   } catch (err) {
-    //     console.log(`공지사항 게시글 작성 실패: ${err}`);
-    //   }
-    // },
+    async writeInfoPost() {
+      try {
+        await apiInstance().post("/information/write", this.post);
+        alert("작성 완료");
+        this.$router.push("/infoboard");
+      } catch (err) {
+        console.log(`공지사항 게시글 작성 실패: ${err}`);
+      }
+    },
   },
 };
 </script>
