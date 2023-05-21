@@ -84,7 +84,7 @@
                 <tr v-for="post in list" :key="post.id" v-bind="list">
                   <td>{{ post.id }}</td>
                   <td>
-                    <router-link :to="{ name: 'informationDetail', params: { no: post.id } }">{{
+                    <router-link :to="{ name: 'infoDetail', params: { no: post.id } }">{{
                       post.title
                     }}</router-link>
                   </td>
@@ -97,24 +97,24 @@
           </div>
           <!-- 컴포넌트로 분리해서 다른 게시판에서도 재사용하도록 수정해야함 -->
           <div class="post-nav">
-  <ul class="pagination justify-content-center">
-    <li class="page-item" data-pg="1">
-      <a href="#" class="page-link" @click="changePage(1)">최신</a>
-    </li>
-    <li class="page-item" data-pg="prev">
-      <a href="#" class="page-link" @click="canGoPrePage">이전</a>
-    </li>
-    <li v-for="index in pageCount" :key="index" class="page-item" :class="{ 'active': pgno === index }" :data-pg="index">
-      <a href="#" class="page-link" @click="changePage(index)">{{ index }}</a>
-    </li>
-    <li class="page-item" data-pg="next">
-      <a href="#" class="page-link" @click="canGoNextPage">다음</a>
-    </li>
-    <li class="page-item" data-pg="pageCount">
-      <a href="#" class="page-link" @click="changePage(pageCount)">마지막</a>
-    </li>
-  </ul>
-</div>
+            <ul class="pagination justify-content-center">
+              <li class="page-item" data-pg="1">
+                <a href="#" class="page-link" @click="changePage(1)">최신</a>
+              </li>
+              <li class="page-item" data-pg="prev">
+                <a href="#" class="page-link" @click="canGoPrePage">이전</a>
+              </li>
+              <li v-for="index in pageCount" :key="index" class="page-item" :class="{ 'active': pgno === index }" :data-pg="index">
+                <a href="#" class="page-link" @click="changePage(index)">{{ index }}</a>
+              </li>
+              <li class="page-item" data-pg="next">
+                <a href="#" class="page-link" @click="canGoNextPage">다음</a>
+              </li>
+              <li class="page-item" data-pg="pageCount">
+                <a href="#" class="page-link" @click="changePage(pageCount)">마지막</a>
+              </li>
+            </ul>
+          </div>
         </div>
       <!-- </b-row> -->
     <!-- </b-row> -->
@@ -140,6 +140,9 @@ export default {
     };
   },
   created() {
+    //this.getInfoPosts(this.pgno, "", "");
+  },
+  mounted() {
     this.getInfoPosts(this.pgno, "", "");
   },
   methods: {
@@ -148,10 +151,12 @@ export default {
         if (typeof pgno == "undefined") pgno = 1;
 
         let uri = `http://localhost/api/information/list?pgno=${pgno}&key=${key}&word=${word}`;
+        //async 사용 이유
         let response = await axios.get(uri);
         
         this.pageCount = response.data.pageCount;
         this.list = response.data.list;
+        console.log(this.list);
 
         if (word != "") this.word = "";
       } catch (err) {
