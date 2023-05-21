@@ -71,10 +71,13 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
 .outer-container {
   padding-left: 0;
   padding-right: 0;
   padding-top: 71px;
+  font-family: Jua;
 }
 
 .plan-container {
