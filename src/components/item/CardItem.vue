@@ -38,7 +38,6 @@ export default {
   created() {
     this.img = `background-image: url(${this.plan.attractionList[0].firstImage})`;
     if (this.img == undefined || this.img == null) this.img = "@/assets/img/main.png";
-    console.log(this.plan.attractionList[0].firstImage);
   },
   methods: {},
   computed: {

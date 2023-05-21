@@ -1,6 +1,6 @@
 <template>
   <b-container fluid class="outer-container">
-    <b-row class="plan-container" align-v="center" align-h="start">
+    <b-row class="plan-container" align-v="center" align-h="center">
       <b-col col-12>
         <b-row>
           <router-link to="/plancreate">
@@ -13,6 +13,13 @@
               <card-item v-for="plan in plans" :key="plan.id" class="plan-card" :plan="plan" />
             </b-row>
           </b-col>
+        </b-row>
+        <b-row align-h="center">
+          <template>
+            <div class="overflow-auto">
+              <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" use-router></b-pagination-nav>
+            </div>
+          </template>
         </b-row>
       </b-col>
     </b-row>
@@ -33,20 +40,30 @@ export default {
   },
   data() {
     return {
+      page: 1,
       plans: [],
     };
+  },
+  created() {
+    let queryPgno = this.$route.query.pgno;
+    console.log(queryPgno);
+    if (typeof queryPgno == undefined) this.page = 1;
+    else this.page = Number(queryPgno);
   },
   mounted() {
     findPlansByuserId(
       this.userInfo.userId,
       ({ data }) => {
-        // console.log(data.data);
         this.plans = data.data;
       },
       () => console.log("조회 실패")
     );
   },
-  methods: {},
+  methods: {
+    linkGen(pageNum) {
+      return `?pgno=${pageNum}`;
+    },
+  },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
   },
