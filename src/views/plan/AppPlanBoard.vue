@@ -1,14 +1,25 @@
 <template>
   <b-container fluid class="outer-container">
-    <b-row class="plan-container" align-v="center" align-h="start">
-      <b-col md="auto">
-        <router-link to="/plancreate">
-          <b-button class="plan-button">계획 세우기</b-button>
-        </router-link>
-      </b-col>
-      <b-col md="auto">
-        <b-row class="card-container" align-h="center">
-          <card-item v-for="index in 10" :key="index" class="plan-card" />
+    <b-row class="plan-container" align-v="center" align-h="center">
+      <b-col col-12>
+        <b-row>
+          <router-link to="/plancreate">
+            <b-button class="plan-button">계획 세우기</b-button>
+          </router-link>
+        </b-row>
+        <b-row>
+          <b-col md="auto">
+            <b-row class="card-container" align-h="center">
+              <card-item v-for="plan in plans" :key="plan.id" class="plan-card" :plan="plan" />
+            </b-row>
+          </b-col>
+        </b-row>
+        <b-row align-h="center">
+          <template>
+            <div class="overflow-auto">
+              <b-pagination-nav :link-gen="linkGen" :number-of-pages="10" use-router></b-pagination-nav>
+            </div>
+          </template>
         </b-row>
       </b-col>
     </b-row>
@@ -17,6 +28,10 @@
 
 <script>
 import CardItem from "@/components/item/CardItem.vue";
+import { findPlansByuserId } from "@/api/plan";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "AppPlanBoard",
@@ -24,10 +39,34 @@ export default {
     CardItem,
   },
   data() {
-    return {};
+    return {
+      page: 1,
+      plans: [],
+    };
   },
-  created() {},
-  methods: {},
+  created() {
+    let queryPgno = this.$route.query.pgno;
+    console.log(queryPgno);
+    if (typeof queryPgno == undefined) this.page = 1;
+    else this.page = Number(queryPgno);
+  },
+  mounted() {
+    findPlansByuserId(
+      this.userInfo.userId,
+      ({ data }) => {
+        this.plans = data.data;
+      },
+      () => console.log("조회 실패")
+    );
+  },
+  methods: {
+    linkGen(pageNum) {
+      return `?pgno=${pageNum}`;
+    },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
 };
 </script>
 
@@ -41,7 +80,7 @@ export default {
 .plan-container {
   position: relative;
   margin: 0;
-  padding-top: 30px;
+  padding-top: 50px;
   width: 100%;
   height: 1000px;
   background: url("@/assets/img/main.png");
@@ -60,13 +99,14 @@ export default {
 }
 
 .card-container {
-  margin: 3%;
-  margin-right: 8%;
+  margin: 50px;
+  margin-top: 30px;
+  padding: 0;
 }
 
 .plan-button,
 .plan-button:focus {
-  margin-left: 10px;
+  margin-left: 50px;
   background-color: rgba(69, 113, 180, 0.89);
   border: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);

@@ -571,11 +571,11 @@ export default {
           Authorization: sessionStorage.getItem("access-token"),
         },
       });
-      instance
+      await instance
         .post("/rest", this.plan)
         .then(() => {
           alert("플랜 생성 완료");
-          window.location.reload();
+          this.$router.push({ name: "planboard" });
         })
         .catch((err) => {
           console.log(err);

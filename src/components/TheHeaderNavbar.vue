@@ -27,7 +27,7 @@
         <b-navbar-nav class="ml-auto" v-else>
           <b-nav-item-dropdown right>
             <template #button-content>
-              <b-icon icon="people" font-scale="2"></b-icon>
+              <b-icon icon="people"></b-icon>
             </template>
             <b-dropdown-item :to="{ name: 'join' }" class="link"><b-icon icon="person-circle"></b-icon> 회원가입 </b-dropdown-item>
             <b-dropdown-item :to="{ name: 'login' }" class="link"><b-icon icon="key"></b-icon> 로그인 </b-dropdown-item>
