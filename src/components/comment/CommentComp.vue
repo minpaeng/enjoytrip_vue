@@ -25,7 +25,7 @@
 
 <script>
 import CommentItem from "@/components/item/CommentItem.vue";
-import infoBoardInstance from "@/api/index";
+import {apiInstance} from "@/api/index";
 export default {
   name: "CommentComp",
   components: {
@@ -47,7 +47,7 @@ export default {
           infoBoardId: this.id,
           content: this.content,
         };
-        await infoBoardInstance.post(`information/${this.id}/comment`, post);
+        await apiInstance().post(`information/${this.id}/comment`, post);
         window.location.reload();
       } catch (err) {
         console.log(`댓글 등록 실패: ${err}`);
