@@ -8,9 +8,12 @@
           </router-link>
         </b-row>
         <b-row>
+          <!-- <router-link :to="{ name: 'infoDetail', params: { no: post.id } }"></router-link> -->
           <b-col md="auto">
             <b-row class="card-container" align-h="center">
-              <card-item v-for="plan in plans" :key="plan.id" class="plan-card" :plan="plan" />
+              <router-link v-for="plan in plans" :key="plan.id" :to="{ name: 'planDetail', params: { no: plan.id }}">
+                <card-item class="plan-card" :plan="plan" />
+              </router-link>
             </b-row>
           </b-col>
         </b-row>
