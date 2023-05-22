@@ -47,6 +47,7 @@ const routes = [
   {
     path: "/planboard",
     name: "planboard",
+    beforeEnter: onlyAuthUser,
     component: AppPlanBoard,
   },
   {
@@ -63,6 +64,7 @@ const routes = [
   {
     path: "/planModify/:no",
     name: "planModify",
+    beforeEnter: onlyAuthUser,
     component: PlanModify,
   },
   {
@@ -78,6 +80,7 @@ const routes = [
   {
     path: "/infoboard/write",
     name: "infowrite",
+    beforeEnter: onlyAuthUser,
     component: InformationWrite,
   },
   {
