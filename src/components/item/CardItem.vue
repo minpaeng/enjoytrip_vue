@@ -1,25 +1,19 @@
 <template>
-  <a href="">
-    <div class="card">
-      <div class="card-header" :style="img">
-        <!-- <div class="card-header-is_closed">
-          <div class="card-header-text">1</div>
-        </div> -->
+  <div class="card">
+    <div class="card-header" :style="img"></div>
+    <div class="card-body">
+      <div class="card-body-header">
+        <h5>{{ plan.title }}</h5>
+        <p>{{ cardStartDate }} ~ {{ cardEndDate }}</p>
+        <!-- <p>{{ plan.memo }}</p> -->
+        <p>작성자: {{ plan.userId }}</p>
       </div>
-      <div class="card-body">
-        <div class="card-body-header">
-          <h5>{{ plan.title }}</h5>
-          <p>{{ cardStartDate }} ~ {{ cardEndDate }}</p>
-          <!-- <p>{{ plan.memo }}</p> -->
-          <p>작성자: {{ plan.userId }}</p>
-        </div>
-        <div class="card-body-footer">
-          <hr style="margin-bottom: 3px; opacity: 0.5; border-color: #3188cf" />
-          추천수: 0
-        </div>
+      <div class="card-body-footer">
+        <hr style="margin-bottom: 3px; opacity: 0.5; border-color: #3188cf" />
+        추천수: 0
       </div>
     </div>
-  </a>
+  </div>
 </template>
 
 <script>
@@ -53,7 +47,8 @@ export default {
 <style scoped>
 .card {
   height: 300px;
-  width: 250px;
+  width: 90%;
+  align-self: baseline;
   border-radius: 15px;
   display: inline-block;
   margin-top: 30px;
@@ -63,6 +58,7 @@ export default {
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   overflow: hidden;
+  align-self: flex-start;
 }
 
 .card-header {

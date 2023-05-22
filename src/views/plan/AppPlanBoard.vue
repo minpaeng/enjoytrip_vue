@@ -1,21 +1,18 @@
 <template>
   <b-container fluid class="outer-container">
-    <b-row class="plan-container" align-v="center" align-h="center">
-      <b-col col-12>
+    <b-row class="plan-container" align-v="start" align-h="center">
+      <b-col col-12 style="padding-left: 100px; padding-right: 100px">
         <b-row>
           <router-link to="/plancreate">
             <b-button class="plan-button">계획 세우기</b-button>
           </router-link>
         </b-row>
-        <b-row>
-          <!-- <router-link :to="{ name: 'infoDetail', params: { no: post.id } }"></router-link> -->
-          <b-col md="auto">
-            <b-row class="card-container" align-h="center">
-              <router-link v-for="plan in plans" :key="plan.id" :to="{ name: 'planDetail', params: { no: plan.id }}">
-                <card-item class="plan-card" :plan="plan" />
-              </router-link>
-            </b-row>
-          </b-col>
+        <b-row align-h="start" align-v="start" cols="5" style="margin: 0; padding: 0">
+          <router-link v-for="plan in plans" :key="plan.id" :to="{ name: 'planDetail', params: { no: plan.id } }">
+            <b-col>
+              <card-item class="plan-card" :plan="plan" />
+            </b-col>
+          </router-link>
         </b-row>
         <b-row align-h="center">
           <template>
