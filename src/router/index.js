@@ -10,6 +10,7 @@ import InformationWrite from "@/views/info/InformationWrite";
 import AppMypage from "@/views/mypage/AppMypage";
 import PlanCreate from "@/views/plan/PlanCreate";
 import PlanDetail from "@/views/plan/PlanDetail";
+import PlanModify from "@/views/plan/PlanModify";
 import AppLogin from "@/views/user/AppLogin";
 import AppJoin from "@/views/user/AppJoin";
 
@@ -58,6 +59,11 @@ const routes = [
     path: "/planDetail/:no",
     name: "planDetail",
     component: PlanDetail,
+  },
+  {
+    path: "/planModify/:no",
+    name: "planModify",
+    component: PlanModify,
   },
   {
     path: "/shareboard",
