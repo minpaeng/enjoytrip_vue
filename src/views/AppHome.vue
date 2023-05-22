@@ -17,12 +17,14 @@
 
     <div>
       <b-row id="main-plan-container" align-h="center">
-        <b-row align-v="center" align-h="start">
-          <b-col md="auto">여행 계획을 세우고 사람들과 공유해요.</b-col>
-          <b-col><b-button class="plan-button">계획 세우기</b-button></b-col>
-        </b-row>
+        <b-col md="auto" align-v="center" align-h="start">
+          <b-row md="auto">여행 계획을 세우고 사람들과 공유해요.</b-row>
+          <b-row><b-button class="plan-button">계획 세우기</b-button></b-row>
+        </b-col>
 
-        <top-three-cards class="top3-cards" />
+        <b-col md="auto">
+          <top-three-cards class="top3-cards" />
+        </b-col>
       </b-row>
 
       <b-row class="board-container" align-h="center">
