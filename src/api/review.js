@@ -1,31 +1,39 @@
 import axios from "axios";
+import { apiInstance } from "@/api/index";
 
-function createReview(review, files) {
-  const FormData = require('form-data');
-  const fs = require('fs');
-  let data = new FormData();
-  data.append('review', JSON.stringify(review), { contentType: 'application/json' });
-  files.map(file => data.append('files', fs.createReadStream(file)));
+const api = apiInstance();
 
-  let config = {
-    method: 'post',
-    maxBodyLength: Infinity,
-    url: 'http://localhost/api/review',
-    headers: { 
-      'Authorization': sessionStorage.getItem("access-token"), 
-      '': '', 
-      ...data.getHeaders()
-    },
-    data : data
-  };
+// function createReview(review, files) {
+//   const FormData = require("form-data");
+//   const fs = require("fs");
+//   let data = new FormData();
+//   data.append("review", JSON.stringify(review), { contentType: "application/json" });
+//   files.map((file) => data.append("files", fs.createReadStream(file)));
 
-  axios.request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+//   let config = {
+//     method: "post",
+//     maxBodyLength: Infinity,
+//     url: "http://localhost/api/review",
+//     headers: {
+//       Authorization: sessionStorage.getItem("access-token"),
+//       "": "",
+//       ...data.getHeaders(),
+//     },
+//     data: data,
+//   };
+
+//   axios
+//     .request(config)
+//     .then((response) => {
+//       console.log(JSON.stringify(response.data));
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
+
+async function getReviewList(success, fail) {
+  await api.get("/review").then(success).catch(fail);
 }
 
-export { createReview };
+export { createReview, getReviewList };
