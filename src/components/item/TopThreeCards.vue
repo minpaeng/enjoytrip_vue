@@ -1,65 +1,80 @@
 <template>
-  <b-row class="card-outer">
-    <b-col class="mb-4 lg-4">
-      <b-card
-        class="card-item-top3"
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-        img-width="300"
-        img-height="300"
-      >
-        <b-card-text> This content is a little bit longer. </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-    </b-col>
-
-    <b-col class="mb-4 lg-4">
-      <b-card
-        class="card-item-top3"
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-        img-width="300"
-        img-height="300"
-      >
-        <b-card-text> This content is a little bit longer. </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-    </b-col>
-
-    <b-col class="mb-4 lg-4">
-      <b-card
-        class="card-item-top3"
-        title="Title"
-        img-src="https://picsum.photos/300/300/?image=41"
-        img-alt="Image"
-        img-top
-        img-width="300"
-        img-height="300"
-      >
-        <b-card-text> This content is a little bit longer. </b-card-text>
-        <template #footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-    </b-col>
+  <b-row class="card-outer" cols="3">
+    <review-card v-for="review in reviews" :key="review.reviewId" :review="reviews[0]" />
   </b-row>
 </template>
 
 <script>
+import ReviewCard from "./ReviewCard.vue";
 export default {
   name: "TopThreeCards",
-  components: {},
+  components: {
+    ReviewCard,
+  },
   data() {
     return {
-      message: "",
+      reviews: [
+        {
+          reviewId: 18,
+          userId: "ssafy2",
+          planId: null,
+          title: "test",
+          content: "test",
+          visitDate: "2023-05-22 00:00:00",
+          registerTime: "2023-05-22 23:30:45",
+          hit: 0,
+          files: [
+            {
+              fid: 1,
+              filePath: "http://localhost/images/review/20230522/200574267522000록시땅핸드크림_체리블라썸.JPG",
+            },
+            {
+              fid: 2,
+              filePath: "http://localhost/images/review/20230522/200574269842800록시땅핸드크림_체리블라썸.JPG",
+            },
+          ],
+        },
+        {
+          reviewId: 17,
+          userId: "ssafy",
+          planId: null,
+          title: "test",
+          content: "test",
+          visitDate: "2023-05-22 00:00:00",
+          registerTime: "2023-05-22 23:30:36",
+          hit: 0,
+          files: [
+            {
+              fid: 1,
+              filePath: "http://localhost/images/review/20230522/200565129846100록시땅핸드크림_체리블라썸.JPG",
+            },
+            {
+              fid: 2,
+              filePath: "http://localhost/images/review/20230522/200565135359000록시땅핸드크림_체리블라썸.JPG",
+            },
+          ],
+        },
+        {
+          reviewId: 16,
+          userId: "ssafy",
+          planId: null,
+          title: "test",
+          content: "test",
+          visitDate: "2023-05-22 00:00:00",
+          registerTime: "2023-05-22 23:30:21",
+          hit: 0,
+          files: [
+            {
+              fid: 1,
+              filePath: "http://localhost/images/review/20230522/200550786467200록시땅핸드크림_체리블라썸.JPG",
+            },
+            {
+              fid: 2,
+              filePath: "http://localhost/images/review/20230522/200550794300500록시땅핸드크림_체리블라썸.JPG",
+            },
+          ],
+        },
+      ],
     };
   },
   created() {},
@@ -69,7 +84,6 @@ export default {
 
 <style scoped>
 .card-item-top3 {
-  padding: 1%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 

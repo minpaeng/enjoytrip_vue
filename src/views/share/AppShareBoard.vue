@@ -8,7 +8,7 @@
         <b-col md="auto"><b-button class="share-button">계획 세우기</b-button></b-col>
         <b-col md="auto">
           <b-row class="card-container" align-h="center">
-            <h5>top3</h5>
+            <h5><strong>top3</strong></h5>
             <top-three-cards id="card-list" />
           </b-row>
         </b-col>
@@ -26,6 +26,8 @@
 <script>
 import TopThreeCards from "@/components/item/TopThreeCards.vue";
 import CardItem from "@/components/item/CardItem.vue";
+// import getReviewList from "@/api/review";
+
 export default {
   name: "AppShareBoard",
   components: {
