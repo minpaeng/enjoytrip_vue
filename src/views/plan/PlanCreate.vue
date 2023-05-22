@@ -635,7 +635,7 @@ export default {
     },
     async makePlan() {
       const instance = axios.create({
-        baseURL: "http://localhost/attraction",
+        baseURL: "http://localhost/api/plan",
         headers: {
           "Content-Type": "application/json",
           Authorization: sessionStorage.getItem("access-token"),
