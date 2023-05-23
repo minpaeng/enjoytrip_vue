@@ -4,8 +4,12 @@
       <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="810" />
 
       <b-row class="share-container" align-v="center" align-h="start">
-        <b-col md="auto"><strong>여행 계획을 세우고 사람들과 공유해요.</strong></b-col>
-        <b-col md="auto"><b-button class="share-button">계획 세우기</b-button></b-col>
+        <b-col md="auto"><strong>여행 후기를 사람들과 공유해요.</strong></b-col>
+        <b-col md="auto"
+          ><router-link to="/shareboard/create"
+            ><b-button class="share-button">후기 작성하기</b-button></router-link
+          ></b-col
+        >
         <b-col md="auto">
           <b-row class="card-container" align-h="center">
             <h5><strong>top3</strong></h5>
@@ -21,7 +25,11 @@
         <b-row align-h="center">
           <template>
             <div class="overflow-auto">
-              <b-pagination-nav :link-gen="linkGen" :number-of-pages="pageCount" use-router></b-pagination-nav>
+              <b-pagination-nav
+                :link-gen="linkGen"
+                :number-of-pages="pageCount"
+                use-router
+              ></b-pagination-nav>
             </div>
           </template>
         </b-row>
@@ -49,10 +57,17 @@ export default {
     };
   },
   created() {
+    let queryPgno = this.$route.query.pgno;
+    console.log(queryPgno);
+    if (typeof queryPgno == undefined) this.page = 1;
+    else this.page = Number(queryPgno);
+
     this.reviewList = getReviewList(
+      this.page,
       ({ data }) => {
         // console.log(data);
         this.reviewList = data.reviews;
+        this.pageCount = data.pageCount;
         console.log(this.reviewList);
       },
       (err) => {

@@ -13,6 +13,7 @@ import PlanDetail from "@/views/plan/PlanDetail";
 import PlanModify from "@/views/plan/PlanModify";
 import AppLogin from "@/views/user/AppLogin";
 import AppJoin from "@/views/user/AppJoin";
+import ShareCreate from "@/views/share/ShareCreate"
 
 import store from "@/store";
 
@@ -71,6 +72,11 @@ const routes = [
     path: "/shareboard",
     name: "shareboard",
     component: AppShareBoard,
+  },
+  {
+    path: "/shareboard/create",
+    name: "sharecreate",
+    component: ShareCreate,
   },
   {
     path: "/infoboard",

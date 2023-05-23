@@ -29,8 +29,8 @@ const api = apiInstance();
 //   });
 // }
 
-async function getReviewList(success, fail) {
-  await api.get("/review?pgno=1").then(success).catch(fail);
+async function getReviewList(pgno, success, fail) {
+  await api.get(`/review?pgno=${pgno}`).then(success).catch(fail);
 }
 
 export { getReviewList };
