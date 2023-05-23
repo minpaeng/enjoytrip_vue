@@ -15,9 +15,16 @@
       </b-row>
 
       <b-container fluid>
-        <div id="cards">
-          <card-item v-for="index in 10" :key="index" />
-        </div>
+        <b-row id="cards" cols="5" align-h="start" align-v="start">
+          <review-card v-for="review in reviewList" :key="review.reviewId" :review="review" />
+        </b-row>
+        <b-row align-h="center">
+          <template>
+            <div class="overflow-auto">
+              <b-pagination-nav :link-gen="linkGen" :number-of-pages="pageCount" use-router></b-pagination-nav>
+            </div>
+          </template>
+        </b-row>
       </b-container>
     </div>
   </b-container>
@@ -25,20 +32,44 @@
 
 <script>
 import TopThreeCards from "@/components/item/TopThreeCards.vue";
-import CardItem from "@/components/item/CardItem.vue";
-// import getReviewList from "@/api/review";
+import ReviewCard from "@/components/item/ReviewCard.vue";
+import { getReviewList } from "@/api/review";
 
 export default {
   name: "AppShareBoard",
   components: {
     TopThreeCards,
-    CardItem,
+    ReviewCard,
   },
   data() {
-    return {};
+    return {
+      page: 1,
+      pageCount: 1,
+      reviewList: [],
+    };
   },
-  created() {},
-  methods: {},
+  created() {
+    this.reviewList = getReviewList(
+      ({ data }) => {
+        // console.log(data);
+        this.reviewList = data.reviews;
+        console.log(this.reviewList);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  },
+  methods: {
+    linkGen(pageNum) {
+      return {
+        path: "/shareboard",
+        query: {
+          pgno: pageNum,
+        },
+      };
+    },
+  },
 };
 </script>
 
@@ -83,8 +114,8 @@ h5 {
 }
 
 #cards {
-  margin: 0;
-  padding: 0;
+  margin: 10px;
+  padding: 20px;
   margin-top: 30px;
 }
 
