@@ -1,6 +1,6 @@
 <template>
   <b-col class="review-card">
-    <a href="#">
+    <router-link :to="{name: 'shareboarddetail', params: {no: review.reviewId}}">
       <b-card class="card-item" :title="review.title" :img-src="review.files[0].filePath" img-alt="Image" img-top img-width="100%" img-height="300">
         <b-card-text>{{ review.content }}</b-card-text>
         <template #footer>
@@ -10,7 +10,7 @@
           >
         </template>
       </b-card>
-    </a>
+    </router-link> 
   </b-col>
 </template>
 
