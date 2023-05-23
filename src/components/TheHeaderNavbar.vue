@@ -8,7 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/planboard?pgno=1"><font-awesome-icon :icon="['fas', 'pen']" fade /> 여행 계획</b-nav-item>
-          <b-nav-item href="/shareboard"><font-awesome-icon :icon="['fas', 'people-arrows']" fade /> 후기 공유</b-nav-item>
+          <b-nav-item href="/shareboard?pgno=1"><font-awesome-icon :icon="['fas', 'people-arrows']" fade /> 후기 공유</b-nav-item>
           <b-nav-item to="/infoboard?pgno=1&key=&word="><font-awesome-icon :icon="['fas', 'clipboard']" fade /> 자유 게시판</b-nav-item>
         </b-navbar-nav>
 
