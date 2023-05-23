@@ -14,6 +14,7 @@
         </h1>
       </div>
     </b-row>
+
     <div class="row" style="margin-left: auto;">
       <div class="col-md-6 d-flex flex-column align-items-end">
         <label for="title" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">계획 이름:</label>
