@@ -169,12 +169,12 @@ export default {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function (marker, title) {
+        (function (marker, title, map) {
           kakao.maps.event.addListener(marker, "mouseover", function () {
             console.log(infowindow);
             let content = `<div style="padding:5px;z-index:1;">${title}</div>`;
             infowindow.setContent(content);
-            infowindow.open(this.map, marker);
+            infowindow.open(map, marker);
           });
           kakao.maps.event.addListener(marker, "click", function () {
             this.spotTitle = marker.title;
@@ -194,7 +194,7 @@ export default {
           itemEl.onmouseout = function () {
             infowindow.close();
           };
-        })(marker, places[i].place_name);
+        })(marker, places[i].place_name, this.map);
 
         fragment.appendChild(itemEl);
       }
