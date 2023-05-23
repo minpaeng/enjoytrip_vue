@@ -3,15 +3,13 @@
     <div class="img-container">
       <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="810" />
 
-      <b-row class="share-container" align-v="center" align-h="start">
+      <b-row class="share-container" align-v="center" align-h="center" style="margin: 0; padding: 0">
         <b-col md="auto"><strong>여행 후기를 사람들과 공유해요.</strong></b-col>
         <b-col md="auto"
-          ><router-link to="/shareboard/create"
-            ><b-button class="share-button">후기 작성하기</b-button></router-link
-          ></b-col
+          ><router-link to="/shareboard/create"><b-button class="share-button">후기 작성하기</b-button></router-link></b-col
         >
-        <b-col md="auto">
-          <b-row class="card-container" align-h="center">
+        <b-col md="auto" style="margin: 0; padding: 0">
+          <b-row class="card-container" align-h="center" style="margin: 0; padding: 0">
             <h5><strong>top3</strong></h5>
             <top-three-cards id="card-list" />
           </b-row>
@@ -25,11 +23,7 @@
         <b-row align-h="center">
           <template>
             <div class="overflow-auto">
-              <b-pagination-nav
-                :link-gen="linkGen"
-                :number-of-pages="pageCount"
-                use-router
-              ></b-pagination-nav>
+              <b-pagination-nav :link-gen="linkGen" :number-of-pages="pageCount" use-router></b-pagination-nav>
             </div>
           </template>
         </b-row>

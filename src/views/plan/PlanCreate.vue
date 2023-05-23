@@ -1,13 +1,5 @@
 <template>
-  <div
-    id="outer"
-    class="container"
-    style="
-      max-width: 1800px; /* Adjust the value to your desired width */
-      margin-left: auto;
-      margin-right: auto;
-    "
-  >
+  <div id="outer" class="container" style="max-width: 1800px; /* Adjust the value to your desired width */ margin-left: auto; margin-right: auto">
     <!-- 중앙 center content end -->
     <div>
       <div class="row-md-8" style="margin-top: 100px">
@@ -25,11 +17,7 @@
               </thead>
               <tbody>
                 <!-- trip-List -->
-                <tr
-                  v-for="attraction in this.recommendAttractions"
-                  :key="attraction.contentId"
-                  @click="moveCenter(attraction.latitude, attraction.longitude)"
-                >
+                <tr v-for="attraction in this.recommendAttractions" :key="attraction.contentId" @click="moveCenter(attraction.latitude, attraction.longitude)">
                   <td><img :src="attraction.firstImage" width="100px" /></td>
                   <td>{{ attraction.title }}</td>
                   <td>{{ attraction.addr1 }} {{ attraction.addr2 }}</td>
@@ -52,12 +40,7 @@
         </div>
         <div class="col-md-12">
           <form class="my-3 fill-row-form" onsubmit="return false;" role="search">
-            <select
-              id="search-area"
-              class="form-select me-2"
-              v-model="sido"
-              @change="showValue(sido)"
-            >
+            <select id="search-area" class="form-select me-2" v-model="sido" @change="showValue(sido)">
               <option value="0" selected>검색 할 지역 선택</option>
               <option v-for="sido in sidos" :key="sido.sidoCode" :value="sido.sidoCode">
                 {{ sido.sidoName }}
@@ -65,11 +48,7 @@
             </select>
             <select id="search-town" class="form-select me-2" v-model="gugun">
               <option value="0" selected>구군 선택</option>
-              <option
-                v-for="gugun in filteredGuguns"
-                :key="gugun.gugunCode"
-                :value="gugun.gugunCode"
-              >
+              <option v-for="gugun in filteredGuguns" :key="gugun.gugunCode" :value="gugun.gugunCode">
                 {{ gugun.gugunName }}
               </option>
             </select>
@@ -84,20 +63,10 @@
               <option value="38">쇼핑</option>
               <option value="39">음식점</option>
             </select>
-            <button
-              id="btn-search"
-              class="btn btn-outline-success"
-              type="button"
-              @click="getAttractions()"
-            >
-              검색
-            </button>
+            <button id="btn-search" class="btn btn-outline-success" type="button" @click="getAttractions()">검색</button>
           </form>
         </div>
-        <div
-          class="row"
-          style="font-family: 'Black Han Sans', sans-serif; overflow: auto; max-height: 500px"
-        >
+        <div class="row" style="font-family: 'Black Han Sans', sans-serif; overflow: auto; max-height: 500px">
           <div class="col-md-12">
             <table id="under-table" class="table table-striped" style="display: ">
               <thead>
@@ -110,11 +79,7 @@
               </thead>
               <tbody>
                 <!-- trip-List -->
-                <tr
-                  v-for="area in this.areas"
-                  :key="area.contentId"
-                  @click="moveCenter(area.latitude, area.longitude)"
-                >
+                <tr v-for="area in this.areas" :key="area.contentId" @click="moveCenter(area.latitude, area.longitude)">
                   <td><img :src="area.firstImage" width="100px" /></td>
                   <td>{{ area.title }}</td>
                   <td>{{ area.addr1 }} {{ area.addr2 }}</td>
@@ -137,37 +102,18 @@
             <div class="col-md-6">
               <i class="bi bi-calendar2-date text-primary"></i>
               <label for="startDate" class="form-label">여행시작:</label>
-              <input
-                type="date"
-                class="form-control"
-                id="startDate"
-                name="startDate"
-                v-model="plan.startDate"
-              />
+              <input type="date" class="form-control" id="startDate" name="startDate" v-model="plan.startDate" />
             </div>
             <div class="col-md-6">
               <i class="bi bi-calendar2-date text-danger"></i>
               <label for="endDate" class="form-label">여행 끝:</label>
-              <input
-                type="date"
-                class="form-control"
-                id="endDate"
-                name="endDate"
-                v-model="plan.endDate"
-              />
+              <input type="date" class="form-control" id="endDate" name="endDate" v-model="plan.endDate" />
             </div>
           </div>
           <div class="mb-3">
             <i class="bi bi-patch-question" style="color: rgb(121, 2, 119)"></i>
             <label for="title" class="form-label">제목:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="title"
-              placeholder="제목 입력"
-              name="title"
-              v-model="plan.title"
-            />
+            <input type="text" class="form-control" id="title" placeholder="제목 입력" name="title" v-model="plan.title" />
           </div>
           <div class="mb-3">
             <i class="bi bi-pencil-square" style="color: rgb(14, 2, 121)"></i>
@@ -209,9 +155,7 @@
           </div>
           <div class="modal-footer d-flex justify-content-center align-items-center">
             <b-button @click="makePlan">생성하기</b-button>
-            <button type="button" class="btn btn-outline-danger btn-lg" data-bs-dismiss="modal">
-              닫기
-            </button>
+            <button type="button" class="btn btn-outline-danger btn-lg" data-bs-dismiss="modal">닫기</button>
           </div>
         </form>
       </div>
@@ -231,16 +175,12 @@
   </div>
 </template>
 
-<script
-  type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"
-></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"></script>
 
 <script>
 // index page 로딩 후 전국의 시도 설정.
 
-const serviceKey =
-  "h%2Bq2O463Q1WNgyJi1HEzzKzPaHFSF0C6CEK6XQSiZ2m6PiXnVMeb2VVzqs2pGTzJlId3sgvnwJf0Ur8HY4t4Aw%3D%3D";
+const serviceKey = "h%2Bq2O463Q1WNgyJi1HEzzKzPaHFSF0C6CEK6XQSiZ2m6PiXnVMeb2VVzqs2pGTzJlId3sgvnwJf0Ur8HY4t4Aw%3D%3D";
 
 //let areaUrl = `${root}/attraction/rest`;
 let areaUrl = `http://localhost/attraction/rest`;
@@ -271,20 +211,11 @@ document.getElementById("btn-search").addEventListener("click", () => {
   let townCode = 0;
   let contentTypeId = 0;
 
-  if (parseInt(document.getElementById("search-area").value))
-    areaCode = document.getElementById("search-area").value;
-  if (parseInt(document.getElementById("search-town").value))
-    townCode = document.getElementById("search-town").value;
-  if (parseInt(document.getElementById("search-content-id").value))
-    contentTypeId = document.getElementById("search-content-id").value;
+  if (parseInt(document.getElementById("search-area").value)) areaCode = document.getElementById("search-area").value;
+  if (parseInt(document.getElementById("search-town").value)) townCode = document.getElementById("search-town").value;
+  if (parseInt(document.getElementById("search-content-id").value)) contentTypeId = document.getElementById("search-content-id").value;
 
-  let searchUrl =
-    `${root}/attraction/selectByAll?contentTypeId=` +
-    contentTypeId +
-    `&sidoCode=` +
-    areaCode +
-    `&gugunCode=` +
-    townCode;
+  let searchUrl = `${root}/attraction/selectByAll?contentTypeId=` + contentTypeId + `&sidoCode=` + areaCode + `&gugunCode=` + townCode;
 
   fetch(searchUrl, {
     method: "GET",
@@ -384,8 +315,7 @@ export default {
       const script = document.createElement("script");
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=246a7edd429db36b04b596cc9e749415";
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}`;
       document.head.appendChild(script);
     }
   },
