@@ -47,7 +47,7 @@ export default {
   },
   created() {
     let queryPgno = this.$route.query.pgno;
-    
+
     if (typeof queryPgno == undefined) this.page = 1;
     else this.page = Number(queryPgno);
     findPlansByuserId(
