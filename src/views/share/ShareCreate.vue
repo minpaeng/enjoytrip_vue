@@ -36,7 +36,7 @@
             <b-button @click="searchPlaces">검색하기</b-button>
           </div>
         </div>
-        <div id="map" style="width: 100%; height: 500px; overflow: hidden"></div>
+        <div id="map" style="width: 100%; height: 500px"></div>
       </b-col>
     </b-row>
   </b-container>
@@ -73,6 +73,7 @@ export default {
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&&libraries=services,clusterer,drawing`;
+      document.head.appendChild(script);
     }
   },
   methods: {
