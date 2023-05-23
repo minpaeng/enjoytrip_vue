@@ -14,66 +14,66 @@ export default {
   data() {
     return {
       reviews: [
-        {
-          reviewId: 18,
-          userId: "ssafy2",
-          planId: null,
-          title: "test",
-          content: "test",
-          visitDate: "2023-05-22 00:00:00",
-          registerTime: "2023-05-22 23:30:45",
-          hit: 0,
-          files: [
-            {
-              fid: 1,
-              filePath: "http://localhost/images/review/20230522/200574267522000록시땅핸드크림_체리블라썸.JPG",
-            },
-            {
-              fid: 2,
-              filePath: "http://localhost/images/review/20230522/200574269842800록시땅핸드크림_체리블라썸.JPG",
-            },
-          ],
+      {
+            "reviewId": 10,
+            "userId": "ssafy",
+            "planId": null,
+            "title": "리뷰 테스트",
+            "content": "내용",
+            "visitDate": "2023-05-22 00:00:00",
+            "registerTime": "2023-05-23 10:08:50",
+            "hit": 0,
+            "files": [
+                {
+                    "fid": 1,
+                    "filePath": "http://localhost/images/review/20230523/90537103765500Image Pasted at 2023-5-18 14-48.png"
+                },
+                {
+                    "fid": 2,
+                    "filePath": "http://localhost/images/review/20230523/9053710585100020230508＿123531.jpg"
+                }
+            ]
         },
         {
-          reviewId: 17,
-          userId: "ssafy",
-          planId: null,
-          title: "test",
-          content: "test",
-          visitDate: "2023-05-22 00:00:00",
-          registerTime: "2023-05-22 23:30:36",
-          hit: 0,
-          files: [
-            {
-              fid: 1,
-              filePath: "http://localhost/images/review/20230522/200565129846100록시땅핸드크림_체리블라썸.JPG",
-            },
-            {
-              fid: 2,
-              filePath: "http://localhost/images/review/20230522/200565135359000록시땅핸드크림_체리블라썸.JPG",
-            },
-          ],
+            "reviewId": 9,
+            "userId": "ssafy",
+            "planId": null,
+            "title": "리뷰 테스트",
+            "content": "내용",
+            "visitDate": "2023-05-22 00:00:00",
+            "registerTime": "2023-05-23 10:08:49",
+            "hit": 0,
+            "files": [
+                {
+                    "fid": 1,
+                    "filePath": "http://localhost/images/review/20230523/90536414076600Image Pasted at 2023-5-18 14-48.png"
+                },
+                {
+                    "fid": 2,
+                    "filePath": "http://localhost/images/review/20230523/9053641592990020230508＿123531.jpg"
+                }
+            ]
         },
         {
-          reviewId: 16,
-          userId: "ssafy",
-          planId: null,
-          title: "test",
-          content: "test",
-          visitDate: "2023-05-22 00:00:00",
-          registerTime: "2023-05-22 23:30:21",
-          hit: 0,
-          files: [
-            {
-              fid: 1,
-              filePath: "http://localhost/images/review/20230522/200550786467200록시땅핸드크림_체리블라썸.JPG",
-            },
-            {
-              fid: 2,
-              filePath: "http://localhost/images/review/20230522/200550794300500록시땅핸드크림_체리블라썸.JPG",
-            },
-          ],
-        },
+            "reviewId": 8,
+            "userId": "ssafy",
+            "planId": null,
+            "title": "리뷰 테스트",
+            "content": "내용",
+            "visitDate": "2023-05-22 00:00:00",
+            "registerTime": "2023-05-23 10:07:23",
+            "hit": 0,
+            "files": [
+                {
+                    "fid": 1,
+                    "filePath": "http://localhost/images/review/20230523/90463632686400Image Pasted at 2023-5-18 14-48.png"
+                },
+                {
+                    "fid": 2,
+                    "filePath": "http://localhost/images/review/20230523/9046363612120020230508＿123531.jpg"
+                }
+            ]
+        }
       ],
     };
   },

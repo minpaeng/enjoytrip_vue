@@ -14,17 +14,31 @@
         </h1>
       </div>
     </b-row>
-
-    <!-- <div class="bordered-container"> -->
-    <div>
-      <label for="title" class = "text-wrapper" style = "color: black; font-size: 20px">계획 이름:</label><br>
-      <input type="text" id="title" name="title" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px"><br>
-      <label for="title" class = "text-wrapper" style = "color: black; font-size: 20px">출발일:</label><br>
-      <input type="text" id="startDate" name="startDate" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px">
-      <p class = "text-wrapper" style = "color: black; font-size: 20px">출발일: {{ planDto.startDate }}</p>
-      <p class = "text-wrapper" style = "color: black; font-size: 20px">도착일: {{ planDto.endDate }}</p>
-      <p class = "text-wrapper" style = "color: black; font-size: 20px">내용: {{ planDto.memo }}</p>
-      <p class = "text-wrapper" style = "color: black; font-size: 20px">등록자: {{ planDto.userId }}</p>
+    <div class="row" style="margin-left: auto;">
+      <div class="col-md-6 d-flex flex-column align-items-end">
+        <label for="title" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">계획 이름:</label>
+        <input type="text" id="title" name="title" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+      </div>
+      <div class="col-md-6 d-flex flex-column align-items-start">
+        <label for="startDate" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">출발일: </label>
+        <input type="text" id="startDate" name="startDate" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+      </div>
+    </div>
+    <div class="row" style="margin-left: auto;">
+      <div class="col-md-6 d-flex flex-column align-items-end">
+        <label for="endDate" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">도착일:</label>
+        <input type="text" id="endDate" name="endDate" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+      </div>
+      <div class="col-md-6 d-flex flex-column align-items-start">
+        <label for="userId" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">작성자:</label>
+        <input type="text" id="userId" name="userId" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+      </div>
+    </div>
+    <div class="row" style="margin-left: auto;">
+      <div class="col-md-12">
+        <label for="memo" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: center; margin-right: 30%;">내용:</label>
+        <input type="text" id="memo" name="memo" value="" disabled style="width: 40%; font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+      </div>
     </div>
 
     <b-row class="text-center">
@@ -283,8 +297,13 @@ export default {
           }          
         }
 
+        console.log(this.planDto);
+        console.log(this.planDto.title);
         document.getElementById("title").value = this.planDto.title;
         document.getElementById("startDate").value = this.planDto.startDate;
+        document.getElementById("endDate").value = this.planDto.endDate;
+        document.getElementById("userId").value = this.planDto.userId;
+        document.getElementById("memo").value = this.planDto.memo;
       } catch (err) {
         console.log("공지사항 게시글 목록 조회 오류: " + err);
       }
