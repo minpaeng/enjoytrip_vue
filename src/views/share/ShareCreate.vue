@@ -171,8 +171,7 @@ export default {
         // mouseout 했을 때는 인포윈도우를 닫습니다
         (function (marker, title, map) {
           kakao.maps.event.addListener(marker, "mouseover", function () {
-            console.log(infowindow);
-            let content = `<div style="padding:5px;z-index:1;">${title}</div>`;
+            let content = `<div style="padding:7px;z-index:1; font-family: Jua;">${title}</div>`;
             infowindow.setContent(content);
             infowindow.open(map, marker);
           });
@@ -209,7 +208,6 @@ export default {
 
     // 검색결과 항목을 Element로 반환하는 함수입니다
     getListItem(index, places) {
-      console.log(places);
       var el = document.createElement("li");
       this.itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' + '<div class="info">' + "   <h5>" + places.place_name + "</h5>";
 
@@ -312,7 +310,11 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
+
 .outer-container {
+  font-family: "Nanum Gothic Coding";
   margin-top: 75px;
   padding: 0;
 }
