@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import AppHome from "@/views/AppHome";
 import AppPlanBoard from "@/views/plan/AppPlanBoard";
 import AppShareBoard from "@/views/share/AppShareBoard";
+import ShareBoardDetail from "@/views/share/ShareBoardDetail";
 import AppInfoBoard from "@/views/info/AppInfoBoard";
 import InformationDetail from "@/views/info/InformationDetail";
 import InformationModify from "@/views/info/InformationModify";
@@ -71,6 +72,11 @@ const routes = [
     path: "/shareboard",
     name: "shareboard",
     component: AppShareBoard,
+  },
+  {
+    path: "/shareboard/detail/:no",
+    name: "shareboarddetail",
+    component: ShareBoardDetail,
   },
   {
     path: "/infoboard",
