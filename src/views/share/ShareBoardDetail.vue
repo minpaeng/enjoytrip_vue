@@ -1,5 +1,17 @@
 <template>
     <body>
+      <div class = "row justify-content-center" id = "container" style = "margin-top: 100px;">
+        <h1
+          style="
+              font-weight: bold;
+              text-decoration-line: underline;
+              text-decoration-thickness: 6px;
+              text-decoration-color: rgb(189, 201, 255);
+          "
+          >
+          후기 상세보기
+          </h1>
+      </div>
         <div class = "row" id = "container">
             <div class = "col md-6">
                 <b-row class="text-center">
@@ -7,47 +19,91 @@
                         <h1
                         style="
                             font-weight: bold;
-                            text-decoration-line: underline;
-                            text-decoration-thickness: 6px;
-                            text-decoration-color: rgb(189, 201, 255);
-                            margin-top: 100px;
                         "
                         >
-                        {{ shareBoardDto.title }}
+                        제목: {{ shareBoardDto.title }}
                         </h1>
                         <p class = "text-wrapper" style = "text-align: right; margin-right: 25%; color: black">
                             방문일자: {{ shareBoardDto.visitDate }}
                         </p>
+                        <p class = "text-wrapper" style = "text-align: right; margin-right: 25%; color: black">
+                            조회수: {{ shareBoardDto.hit }}
+                        </p>
                         
-                        <carousel-3d :autoplay="true" :autoplay-timeout="3000" :controls-visible="true" :controls-prev-html="'&#x2039; '" :controls-next-html="'&#x203A;'" :controls-width="10" :controls-height="30" :clickable="false">
-                            <slide v-for="(filePath, index) in files" :key="parseInt(index)" :index="parseInt(index)">
-                            <img :src="filePath" class="slideImage">
-                            </slide>
-                        </carousel-3d>
+                        <!-- <carousel-3d :autoplay="true" :autoplay-timeout="3000" :controls-visible="true" :controls-prev-html="'&#x2039; '" :controls-next-html="'&#x203A;'" :controls-width="10" :controls-height="30" :clickable="false">
+                          <slide v-for="(filePath, index) in files" :key="parseInt(index)" :index="parseInt(index)">
+                          <img :src="filePath" class="slideImage">
+                          </slide>
+                        </carousel-3d> -->
+
+                        <!-- <carousel>
+                          <slide v-for="(filePath, index) in files" :key="parseInt(index)" :index="parseInt(index)">
+                          <img :src="filePath" class="slideImage">
+                          </slide>
+                        </carousel> -->
+                        <div class = "d-flex justify-content-center align-items-center" style = "overflow-y : auto;">
+                          <b-carousel
+                            id="carousel-1"
+                            v-model="slide"
+                            :interval="4000"
+                            controls
+                            indicators
+                            background="#ababab"
+                            class="custom-carousel"
+                            style="text-shadow: 1px 1px 2px #333;"
+                            @sliding-start="onSlideStart" 
+                            @sliding-end="onSlideEnd"
+                          >
+                            <b-carousel-slide
+                              v-for="(filePath, index) in files"
+                              :key = "parseInt(index)"
+                              :index = "parseInt(index)"
+                              :img-src="filePath"
+                              style="width: 400px; height: 400px;"
+                            ></b-carousel-slide>
+                          </b-carousel>
+                        </div>
                         
                         <p class = "text-wrapper" style = "color: black; font-size: 20px;">이미지를 넘기세요</p>
+
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                        <div>
+                          <span @click="toggleLike" :class="{ 'heart-icon': true, 'liked': liked }">
+                            <font-awesome-icon :icon="[liked ? 'fas' : 'far', 'heart']" />
+                          </span>
+                          <span> 좋아요: {{ likeCount }}</span>
+                        </div>
+
+                        <label for="content" class="text-wrapper" style="color: black; font-size: 20px; display: block;">내용:</label>
+
+                        <input class = "fixed-size-input" type="text" id="content" name="content" value="" disabled style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 20px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;  overflow:scroll; width:500px; height:150px;"><br>
                         
-                        <label for="content" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: left; margin-left: 20%; margin-top: 5%;">내용:</label>
-                        <input class = "fixed-size-input" type="text" id="content" name="content" value="" disabled style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 20px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 10%;"><br>
                     </div>
                 </b-row>
             </div>
-            <div class = "col md-6">
-                <div class="map-container">
-                    <div id="map" style="width: 100%; height: 600px"></div>
-                </div>
+            <div class="col md-6">
+              <label for="location" class="text-wrapper" style="color: black; font-size: 20px; display: block;">장소명:</label>
+              <input class="fixed-size-input" type="text" id="location" name="location" value="" disabled style="font-size: 20px; font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 20px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px; overflow: scroll; width: 100%; height: 10%; text-align: center;"><br>
+              <div id="map" class="map-container" style="height: 70%; margin-bottom: 10%; margin-top: 5%"></div>
             </div>
         </div>
     </body>
 </template>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"></script>
+<style scoped>
+.thumb-filled {
+  color: black;
+}
 
-<style>
+.custom-carousel {
+  width: 400px; /* Adjust the width as needed */
+  height: 400px; /* Adjust the height as needed */
+}
 
 .map-container {
   position: relative;
-  height: 600px;
+  height: 100%;
   margin-bottom: 70px;
   padding-bottom: 0;
 }
@@ -71,21 +127,9 @@
 }
 
 .text-wrapper {
-  color: white; font-family: 'Lobster', cursive;
+  color: white; font-family: 'Lobster', sans-serif, bold;
 }
 
-.carousel-3d-slide{
-  height:unset !important;
-}
-
-.slideImage {
-  max-width: 100%; /* Ensure the images resize proportionally within their parent container */
-  max-height: 100%; /* Ensure the images resize proportionally within their parent container */
-}
-
-.carousel-3d-slide{
-      box-shadow: 0 6px 6px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
-}
 .prev[data-v-05517ad0]{
   left: 244px !important;
   top: 0px  !important;
@@ -94,30 +138,42 @@
   right: 225px !important;
     top: 0px  !important;
 }
-.Next slide span{
-  font-size:20px;
+.heart-icon {
+  cursor: pointer;
 }
-.carousel-3d-container .next span{
-  font-size:40px;
-  height: 100%;
+
+.heart-icon .svg-inline--fa {
+  width: 1em;
+  height: 1em;
 }
-.carousel-3d-container .prev  span{
-  font-size:40px;
+
+.heart-icon.liked .svg-inline--fa {
+  color: red;
 }
-.carousel-3d-slide{
-	width:400px !important;
-}
+
 </style>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"></script>
 
 <script>
 import { apiInstance } from '@/api';
-// import {Carousel, Slide} from 'vue-carousel';
-import {Carousel3d, Slide} from 'vue-carousel-3d';
+import {Carousel, Slide} from 'vue-carousel';
+// import {Carousel3d, Slide} from 'vue-carousel-3d';
 import Vue from 'vue';
-
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 // const serviceKey = "h%2Bq2O463Q1WNgyJi1HEzzKzPaHFSF0C6CEK6XQSiZ2m6PiXnVMeb2VVzqs2pGTzJlId3sgvnwJf0Ur8HY4t4Aw%3D%3D";
 
-Vue.use(Carousel3d);
+// Import the individual icons you want to use
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
+// Add the imported icons to the library
+library.add(faHeart);
+
+// Vue.use(Carousel3d);
+Vue.use(Carousel);
+
+Vue.component
 
 // var mapContainer = document.getElementById("map"), // 지도를 표시할 div
 //   mapOption = {
@@ -130,15 +186,21 @@ Vue.use(Carousel3d);
 export default {
     name: "ShareDetail",
     components: {
-        Carousel3d,
+        // Carousel3d,
+        Carousel,
         Slide, 
     },
     data() {
         return {
+            slide: 0,
+            sliding: null,
             id: null,
             shareBoardDto: {},
             fileObjects: [],
             files: [],
+            isThumbFilled: false,
+            likeCount: 0,
+            liked: false,
         };
     },
     created() {},
@@ -154,36 +216,48 @@ export default {
         });
 
         if (window.kakao && window.kakao.maps) {
-            this.initMap();
+          this.initMap();
         } else {
-            const script = document.createElement("script");
-            /* global kakao */
-            script.onload = () => kakao.maps.load(this.initMap);
-            script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}`;
-            document.head.appendChild(script);
+          const script = document.createElement("script");
+          /* global kakao */
+          script.onload = () => kakao.maps.load(this.initMap);
+          script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}`;
+          document.head.appendChild(script);
         }
     },
     methods: {
+        toggleLike() {
+          if (this.liked) {
+            this.likeCount--;
+          } else {
+            this.likeCount++;
+          }
+          this.liked = !this.liked;
+        },
+        onSlideStart(slide) {
+          this.sliding = true
+        },
+        onSlideEnd(slide) {
+          this.sliding = false
+        },
         async getShareBoardDetail() {
             try {
                 let url = `http://localhost/api/review/${this.id}`
-                console.log(this.id);
+                
                 let response = await apiInstance().get(
                 url
                 );
                 this.shareBoardDto = response.data;
                 this.fileObjects = response.data.files;
                 
-                console.log(this.shareBoardDto);
-                
                 for(let i = 0; i < this.fileObjects.length; i++){
                     this.files.push(this.fileObjects[i].filePath);
                 }
 
-                console.log(this.files);
-                console.log(typeof this.files);
-
-                document.getElementById("content").value = this.shareBoardDto.content;
+                document.getElementById("content").value = this.shareBoardDto.content;  
+                document.getElementById("location").value = this.shareBoardDto.spotName + " " + this.shareBoardDto.spotAddress
+                
+                this.moveCenter(this.shareBoardDto.x, this.shareBoardDto.y);
             } catch (err) {
                 console.log("후기 게시글 목록 조회 오류: " + err);
             }
@@ -198,7 +272,84 @@ export default {
           //지도 객체를 등록합니다.
           //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
           this.map = new kakao.maps.Map(container, options);
+          console.log(this.map);
         },
+        moveCenter(lat, lng) {
+          try {
+            this.map.setCenter(new kakao.maps.LatLng(lat, lng));
+          }catch(err){
+            console.log("에러");
+            console.log(this.map);
+            console.log(err);
+          }
+        },
+        myFunction(x) {
+          if (this.thumbActivation === true) {
+            console.log("A");
+            x.classList.toggle("fa-thumbs-down");
+            this.thumbActivation = false;
+          }else {
+            console.log("B");
+            x.classList.toggle("fa-thumbs-down");
+            this.thumbActivation = true;
+          }
     },
+    displayMarker() {
+      // 기존의 마커를 삭제합니다
+      for (var i = 0; i < this.markers.length; i++) {
+        this.markers[i].setMap(null);
+      }
+
+      // 마커 이미지의 이미지 주소입니다
+      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 관광지
+
+      for (var i = 0; i < this.positions.length; i++) {
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(24, 35);
+
+        // 마커 이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+          map: this.map, // 마커를 표시할 지도
+          position: this.positions[i].latlng, // 마커를 표시할 위치
+          title: this.positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+          image: markerImage, // 마커 이미지
+          clickable: true, // 마커 클릭을 가능하게 함
+        });
+
+        this.markers[i] = marker;
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, "click", function () {
+          // 해당 관광지의 이름 출력
+          alert(this.Gb);
+        });
+      }
+      // 첫번째 검색 정보를 이용하여 지도 중심을 이동 시킵니다
+      this.map.setCenter(this.positions[0].latlng);
+    },
+    displayInfoWindow() {
+      if (this.infowindow && this.infowindow.getMap()) {
+        //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
+        this.map.setCenter(this.infowindow.getPosition());
+        return;
+      }
+
+      var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
+        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+      this.infowindow = new kakao.maps.InfoWindow({
+        map: this.map, // 인포윈도우가 표시될 지도
+        position: iwPosition,
+        content: iwContent,
+        removable: iwRemoveable,
+      });
+
+      this.map.setCenter(iwPosition);
+    },
+}
 }
 </script>
