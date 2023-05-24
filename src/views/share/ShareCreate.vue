@@ -14,7 +14,7 @@
           <b-col cols="10" class="margin-area">
             <b-form-textarea
               id="textarea"
-              v-model="content"
+              v-model="review.content"
               placeholder="내용"
               rows="3"
               max-rows="6"
@@ -173,7 +173,7 @@ export default {
       kakao.maps.event.addListener(marker, "mouseover", function () {
         let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
         infowindow.setContent(content);
-        infowindow.open(this.map, marker);
+        infowindow.open(self.map, marker);
       });
       kakao.maps.event.addListener(marker, "click", function () {
         self.setSpotInfo(place);
@@ -186,7 +186,7 @@ export default {
       itemEl.onmouseover = function () {
         let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
         infowindow.setContent(content);
-        infowindow.open(this.map, marker);
+        infowindow.open(self.map, marker);
       };
 
       itemEl.onmouseout = function () {
