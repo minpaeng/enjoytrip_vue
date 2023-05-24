@@ -258,17 +258,17 @@ export default {
 
       if (places.road_address_name) {
         this.itemStr +=
-          "    <div>도로명: " +
+          "    <div>" +
           places.road_address_name +
           "</div>" +
-          '   <div class="jibun gray">지번: ' +
+          '   <div class="jibun gray">' +
           places.address_name +
           "</div>";
       } else {
-        this.itemStr += "    <div>주소: " + places.address_name + "</div>";
+        this.itemStr += "    <div>" + places.address_name + "</div>";
       }
 
-      this.itemStr += '  <div class="tel">전화번호: ' + places.phone + "</div>" + "</div><hr/>";
+      this.itemStr += '  <div class="tel">' + places.phone + "</div>" + "</div>";
 
       el.innerHTML = this.itemStr;
       el.className = "item";
@@ -347,7 +347,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .share-button,
 .share-button:focus {
   background-color: rgba(69, 113, 180, 0.89);
