@@ -14,7 +14,7 @@
           <b-col cols="10" class="margin-area">
             <b-form-textarea
               id="textarea"
-              v-model="content"
+              v-model="review.content"
               placeholder="내용"
               rows="3"
               max-rows="6"
@@ -37,21 +37,21 @@
           <b-col cols="10" class="margin-area">
             <b-form-file
               multiple
-              v-model="review.files"
-              :state="Boolean(review.files)"
+              v-model="files"
+              :state="Boolean(files)"
               placeholder="파일 선택"
               drop-placeholder=" 드래그해서 넣기"
             ></b-form-file>
-            <b-col cols="12" v-for="(file, index) in review.files" :key="index" class="margin-area">
+            <b-col cols="12" v-for="(file, index) in files" :key="index" class="margin-area">
               {{ file ? file.name : "" }}
             </b-col>
           </b-col>
           <b-col cols="2" class="margin-area">방문장소:</b-col>
-          <b-col cols="10" class="margin-area">{{ review.spotTitle }}</b-col>
+          <b-col cols="10" class="margin-area">{{ review.spotName }}</b-col>
           <b-col cols="2" class="margin-area">주소:</b-col>
           <b-col cols="10" class="margin-area">{{ review.spotAddress }}</b-col>
         </b-row>
-        <b-button class="share-button">작성하기</b-button>
+        <b-button class="share-button" @click="create">작성하기</b-button>
       </b-col>
       <b-col cols="6" class="bound">
         <div class="map_wrap">
@@ -82,6 +82,8 @@
 </template>
 
 <script>
+import { createReview } from "@/api/review";
+
 export default {
   name: "ShareCreate",
   components: {},
@@ -93,16 +95,16 @@ export default {
       ps: null,
       keyword: "",
       date: "",
+      files: [],
       review: {
         userId: "ssafy",
         title: "",
         content: "내용",
         visitDate: "2023-05-22",
-        spotTitle: "",
+        spotName: "",
         spotAddress: "",
         x: "",
         y: "",
-        files: [],
       },
     };
   },
@@ -119,6 +121,12 @@ export default {
     }
   },
   methods: {
+    // 리뷰 작성 요청
+    async create() {
+      await createReview(this.review, this.files);
+      alert("등록 완료");
+      this.$router.push({ name: "shareboard", query: { pgno: 1 } });
+    },
     // 맵 초기화
     initMap() {
       const mapContainer = document.getElementById("map");
@@ -162,7 +170,7 @@ export default {
     },
 
     setSpotInfo(place) {
-      this.review.spotTitle = place.place_name;
+      this.review.spotName = place.place_name;
       this.review.spotAddress = place.address_name;
       this.review.x = place.x;
       this.review.y = place.y;
@@ -173,7 +181,7 @@ export default {
       kakao.maps.event.addListener(marker, "mouseover", function () {
         let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
         infowindow.setContent(content);
-        infowindow.open(this.map, marker);
+        infowindow.open(self.map, marker);
       });
       kakao.maps.event.addListener(marker, "click", function () {
         self.setSpotInfo(place);
@@ -186,7 +194,7 @@ export default {
       itemEl.onmouseover = function () {
         let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
         infowindow.setContent(content);
-        infowindow.open(this.map, marker);
+        infowindow.open(self.map, marker);
       };
 
       itemEl.onmouseout = function () {
