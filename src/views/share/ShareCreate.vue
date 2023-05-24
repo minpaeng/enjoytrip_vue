@@ -1,10 +1,10 @@
 <template>
   <b-container fluid class="outer-container">
-    <b-row align-h="center" align-v="center" style="margin: 0; padding: 30px">
+    <b-row align-h="center" align-v="center" class="review-box bound-gray">
       <h4><strong>후기 작성</strong></h4>
     </b-row>
     <b-row class="bound box">
-      <b-col cols="6" class="bound">
+      <b-col cols="6" class="bound left-box">
         <b-row class="bound">
           <b-col cols="12" class="bound">
             <b-row>
@@ -42,15 +42,17 @@
           <b-col class="spot-info">
             <b-row>
               <b-col cols="2" class="margin-area">방문장소:</b-col>
-              <b-col cols="10" class="margin-area">{{ review.spotName }}</b-col>
+              <b-col cols="10" class="margin-area bound-gray">{{ review.spotName }}</b-col>
             </b-row>
             <b-row>
               <b-col cols="2" class="margin-area">주소:</b-col>
-              <b-col cols="10" class="margin-area">{{ review.spotAddress }}</b-col>
+              <b-col cols="10" class="margin-area bound-gray">{{ review.spotAddress }}</b-col>
             </b-row>
           </b-col>
+          <b-col cols="12">
+            <b-button class="share-button" @click="create">작성하기</b-button>
+          </b-col>
         </b-row>
-        <b-button class="share-button" @click="create">작성하기</b-button>
       </b-col>
       <b-col cols="6" class="bound">
         <div class="map_wrap">
@@ -352,6 +354,11 @@ export default {
   overflow: hidden;
 }
 
+.left-box {
+  display: flex;
+  justify-content: center;
+}
+
 .share-button,
 .share-button:focus {
   background-color: rgba(69, 113, 180, 0.89);
@@ -365,6 +372,10 @@ export default {
   background: rgba(50, 92, 156, 0.89);
   border: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.review-box {
+  margin: 0;
+  padding: 30px;
 }
 
 .outer-container {
@@ -538,13 +549,15 @@ export default {
 }
 
 .spot-info {
-  margin-top: 30px;
-  margin-bottom: 20px;
   margin-left: 20px;
   margin-right: 16px;
-  border-radius: 10px;
-  border: 1px solid #8484842c;
+  margin-bottom: 15px;
   text-align: start;
   width: 100%;
+}
+
+.bound-gray {
+  border-radius: 10px;
+  border: 1px solid #8484842c;
 }
 </style>
