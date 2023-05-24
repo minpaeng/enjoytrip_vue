@@ -1,36 +1,36 @@
 import { apiInstance } from "@/api/index";
-
+import FormData from "form-data";
 const api = apiInstance();
 
-// function createReview(review, files) {
-// const FormData = require("form-data");
-// const fs = require("fs");
-// let data = new FormData();
-// data.append("review", JSON.stringify(review), { contentType: "application/json" });
-// files.map((file) => data.append("files", fs.createReadStream(file)));
-// let config = {
-//   method: "post",
-//   maxBodyLength: Infinity,
-//   url: "http://localhost/api/review",
-//   headers: {
-//     Authorization: sessionStorage.getItem("access-token"),
-//     "": "",
-//     ...data.getHeaders(),
-//   },
-//   data: data,
-// };
-// axios
-//   .request(config)
-//   .then((response) => {
-//     console.log(JSON.stringify(response.data));
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// }
+function createReview(review, files) {
+  let data = new FormData();
+  const blob = new Blob([JSON.stringify(review)], { type: "application/json" });
+  data.append("review", blob);
+  files.map((file) => data.append("files", file));
+
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "/review",
+    headers: {
+      Authorization: sessionStorage.getItem("access-token"),
+      "Content-Type": "multipart/form-data",
+    },
+    data: data,
+  };
+  
+  api.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((err) => {
+      console.log(err);
+  })
+
+}
 
 async function getReviewList(pgno, success, fail) {
   await api.get(`/review?pgno=${pgno}`).then(success).catch(fail);
 }
 
-export { getReviewList };
+export { createReview, getReviewList };
