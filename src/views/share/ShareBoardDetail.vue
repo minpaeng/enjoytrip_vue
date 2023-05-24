@@ -115,26 +115,23 @@ import { apiInstance } from '@/api';
 import {Carousel3d, Slide} from 'vue-carousel-3d';
 import Vue from 'vue';
 
-const serviceKey = "h%2Bq2O463Q1WNgyJi1HEzzKzPaHFSF0C6CEK6XQSiZ2m6PiXnVMeb2VVzqs2pGTzJlId3sgvnwJf0Ur8HY4t4Aw%3D%3D";
+// const serviceKey = "h%2Bq2O463Q1WNgyJi1HEzzKzPaHFSF0C6CEK6XQSiZ2m6PiXnVMeb2VVzqs2pGTzJlId3sgvnwJf0Ur8HY4t4Aw%3D%3D";
 
 Vue.use(Carousel3d);
 
-// 카카오지도
-var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-  mapOption = {
-    center: new kakao.maps.LatLng(37.500613, 127.036431), // 지도의 중심좌표
-    level: 5, // 지도의 확대 레벨
-  };
+// var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+//   mapOption = {
+//     center: new kakao.maps.LatLng(37.500613, 127.036431), // 지도의 중심좌표
+//     level: 5,
+//   };
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);
+// var map = new kakao.maps.Map(mapContainer, mapOption);
 
 export default {
     name: "ShareDetail",
     components: {
         Carousel3d,
-        Slide,
-        
+        Slide, 
     },
     data() {
         return {
@@ -190,6 +187,17 @@ export default {
             } catch (err) {
                 console.log("후기 게시글 목록 조회 오류: " + err);
             }
+        },
+        initMap() {
+          const container = document.getElementById("map");
+          const options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 5,
+          };
+
+          //지도 객체를 등록합니다.
+          //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+          this.map = new kakao.maps.Map(container, options);
         },
     },
 }
