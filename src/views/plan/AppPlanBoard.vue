@@ -8,7 +8,11 @@
           </router-link>
         </b-row>
         <b-row align-h="start" align-v="start" cols="5" style="margin: 0; padding: 0">
-          <router-link v-for="plan in plans" :key="plan.id" :to="{ name: 'planDetail', params: { no: plan.id } }">
+          <router-link
+            v-for="plan in plans"
+            :key="plan.id"
+            :to="{ name: 'planDetail', params: { no: plan.id } }"
+          >
             <b-col>
               <card-item class="plan-card" :plan="plan" />
             </b-col>
@@ -17,7 +21,11 @@
         <b-row align-h="center">
           <template>
             <div class="overflow-auto">
-              <b-pagination-nav :link-gen="linkGen" :number-of-pages="pageCount" use-router></b-pagination-nav>
+              <b-pagination-nav
+                :link-gen="linkGen"
+                :number-of-pages="pageCount"
+                use-router
+              ></b-pagination-nav>
             </div>
           </template>
         </b-row>
@@ -80,6 +88,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
 @import url("https://fonts.googleapis.com/css?family=Jua:400");
 .outer-container {
+  margin: 0;
   padding-left: 0;
   padding-right: 0;
   padding-top: 71px;
