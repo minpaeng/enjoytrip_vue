@@ -35,4 +35,8 @@ async function getReviewList(pgno, success, fail) {
   await api.get(`/review?pgno=${pgno}`).then(success).catch(fail);
 }
 
-export { createReview, getReviewList };
+async function getTop3ReviewList(success, fail) {
+  await api.get(`/review/top3`).then(success).catch(fail);
+}
+
+export { createReview, getReviewList, getTop3ReviewList };

@@ -11,7 +11,7 @@
         <b-col md="auto" style="margin: 0; padding: 0">
           <b-row class="card-container" align-h="center" style="margin: 0; padding: 0">
             <h5><strong>top3</strong></h5>
-            <top-three-cards id="card-list" />
+            <top-three-cards id="card-list" :top3List="top3List" />
           </b-row>
         </b-col>
       </b-row>
@@ -35,7 +35,7 @@
 <script>
 import TopThreeCards from "@/components/item/TopThreeCards.vue";
 import ReviewCard from "@/components/item/ReviewCard.vue";
-import { getReviewList } from "@/api/review";
+import { getReviewList, getTop3ReviewList } from "@/api/review";
 
 export default {
   name: "AppShareBoard",
@@ -48,6 +48,7 @@ export default {
       page: 1,
       pageCount: 1,
       reviewList: [],
+      top3List: [],
     };
   },
   created() {
@@ -55,13 +56,21 @@ export default {
     if (typeof queryPgno == undefined) this.page = 1;
     else this.page = Number(queryPgno);
 
-    this.reviewList = getReviewList(
+    getReviewList(
       this.page,
       ({ data }) => {
-        console.log(data);
         this.reviewList = data.reviews;
         this.pageCount = data.pageCount;
-        console.log(this.reviewList);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
+    getTop3ReviewList(
+      ({ data }) => {
+        this.top3List = data;
+        console.log("ㅠㅠ", data);
       },
       (err) => {
         console.log(err);
