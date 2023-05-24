@@ -18,15 +18,17 @@ function createReview(review, files) {
     },
     data: data,
   };
-  
-  api.request(config)
+
+  api
+    .request(config)
     .then((response) => {
       console.log(JSON.stringify(response.data));
+      alert("등록 완료");
     })
     .catch((err) => {
       console.log(err);
-  })
-
+      alert("등록 실패");
+    });
 }
 
 async function getReviewList(pgno, success, fail) {

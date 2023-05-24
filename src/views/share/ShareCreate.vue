@@ -6,68 +6,62 @@
     <b-row class="bound box">
       <b-col cols="6" class="bound">
         <b-row class="bound">
-          <b-col cols="2" class="margin-area"><label>제목</label></b-col>
-          <b-col cols="10" class="margin-area">
-            <b-form-input v-model="review.title" placeholder="제목"></b-form-input>
+          <b-col cols="12" class="bound">
+            <b-row>
+              <b-col cols="2" class="margin-area"><label>제목</label></b-col>
+              <b-col cols="10" class="margin-area">
+                <b-form-input v-model="review.title" placeholder="제목"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="2" class="margin-area"><label>내용</label></b-col>
+              <b-col cols="10" class="margin-area">
+                <b-form-textarea id="textarea" v-model="review.content" placeholder="내용" rows="3" max-rows="6"></b-form-textarea>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="2" class="margin-area">
+                <label>방문날짜</label>
+              </b-col>
+              <b-col cols="10" class="margin-area">
+                <b-form-datepicker id="example-datepicker" v-model="review.visitDate" class="mb-2" placeholder="날짜 선택"></b-form-datepicker>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="2" class="margin-area">
+                <label>사진첨부</label>
+              </b-col>
+              <b-col cols="10" class="margin-area">
+                <b-form-file multiple v-model="files" :state="Boolean(files)" placeholder="파일 선택" drop-placeholder=" 드래그해서 넣기"></b-form-file>
+                <b-col cols="12" v-for="(file, index) in files" :key="index" class="margin-area">
+                  {{ file ? file.name : "" }}
+                </b-col>
+              </b-col>
+            </b-row>
           </b-col>
-          <b-col cols="2" class="margin-area"><label>내용</label></b-col>
-          <b-col cols="10" class="margin-area">
-            <b-form-textarea
-              id="textarea"
-              v-model="review.content"
-              placeholder="내용"
-              rows="3"
-              max-rows="6"
-            ></b-form-textarea>
+          <b-col class="spot-info">
+            <b-row>
+              <b-col cols="2" class="margin-area">방문장소:</b-col>
+              <b-col cols="10" class="margin-area">{{ review.spotName }}</b-col>
+            </b-row>
+            <b-row>
+              <b-col cols="2" class="margin-area">주소:</b-col>
+              <b-col cols="10" class="margin-area">{{ review.spotAddress }}</b-col>
+            </b-row>
           </b-col>
-          <b-col cols="2" class="margin-area">
-            <label>방문날짜</label>
-          </b-col>
-          <b-col cols="10" class="margin-area">
-            <b-form-datepicker
-              id="example-datepicker"
-              v-model="date"
-              class="mb-2"
-              placeholder="날짜 선택"
-            ></b-form-datepicker>
-          </b-col>
-          <b-col cols="2" class="margin-area">
-            <label>사진첨부</label>
-          </b-col>
-          <b-col cols="10" class="margin-area">
-            <b-form-file
-              multiple
-              v-model="files"
-              :state="Boolean(files)"
-              placeholder="파일 선택"
-              drop-placeholder=" 드래그해서 넣기"
-            ></b-form-file>
-            <b-col cols="12" v-for="(file, index) in files" :key="index" class="margin-area">
-              {{ file ? file.name : "" }}
-            </b-col>
-          </b-col>
-          <b-col cols="2" class="margin-area">방문장소:</b-col>
-          <b-col cols="10" class="margin-area">{{ review.spotName }}</b-col>
-          <b-col cols="2" class="margin-area">주소:</b-col>
-          <b-col cols="10" class="margin-area">{{ review.spotAddress }}</b-col>
         </b-row>
         <b-button class="share-button" @click="create">작성하기</b-button>
       </b-col>
       <b-col cols="6" class="bound">
         <div class="map_wrap">
-          <div
-            id="map"
-            style="width: 100%; height: 100%; position: relative; overflow: hidden"
-          ></div>
+          <div id="map"></div>
 
           <div id="menu_wrap" class="bg_white">
             <div class="option">
               <div>
                 <form>
                   키워드 : <input type="text" v-model="keyword" id="keyword" size="15" />
-                  <b-button @click="searchPlaces" style="padding-left: 10px; padding-right: 10px"
-                    >검색</b-button
-                  >
+                  <b-button @click="searchPlaces" style="padding-left: 10px; padding-right: 10px">검색</b-button>
                 </form>
               </div>
             </div>
@@ -83,6 +77,9 @@
 
 <script>
 import { createReview } from "@/api/review";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 
 export default {
   name: "ShareCreate",
@@ -97,10 +94,10 @@ export default {
       date: "",
       files: [],
       review: {
-        userId: "ssafy",
+        userId: "",
         title: "",
-        content: "내용",
-        visitDate: "2023-05-22",
+        content: "",
+        visitDate: "",
         spotName: "",
         spotAddress: "",
         x: "",
@@ -108,7 +105,12 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+    this.review.userId = this.userInfo.userId;
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+  },
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.initMap();
@@ -124,7 +126,6 @@ export default {
     // 리뷰 작성 요청
     async create() {
       await createReview(this.review, this.files);
-      alert("등록 완료");
       this.$router.push({ name: "shareboard", query: { pgno: 1 } });
     },
     // 맵 초기화
@@ -179,7 +180,7 @@ export default {
     addEvent(marker, place, infowindow, itemEl) {
       let self = this;
       kakao.maps.event.addListener(marker, "mouseover", function () {
-        let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
+        let content = `<div style="padding:5px;z-index:1;font-family: Jua;">${place.place_name}</div>`;
         infowindow.setContent(content);
         infowindow.open(self.map, marker);
       });
@@ -257,13 +258,7 @@ export default {
         "</strong></h6>";
 
       if (places.road_address_name) {
-        this.itemStr +=
-          "    <div>" +
-          places.road_address_name +
-          "</div>" +
-          '   <div class="jibun gray">' +
-          places.address_name +
-          "</div>";
+        this.itemStr += "    <div>" + places.road_address_name + "</div>" + '   <div class="jibun gray">' + places.address_name + "</div>";
       } else {
         this.itemStr += "    <div>" + places.address_name + "</div>";
       }
@@ -278,8 +273,7 @@ export default {
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     addMarker(position, idx) {
-      var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
@@ -348,6 +342,16 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
+
+#map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 .share-button,
 .share-button:focus {
   background-color: rgba(69, 113, 180, 0.89);
@@ -387,7 +391,6 @@ export default {
 .map_wrap * {
   margin: 0;
   padding: 0;
-  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
   font-size: 12px;
 }
 .map_wrap a,
@@ -462,8 +465,7 @@ export default {
 }
 #placesList .info .jibun {
   padding-left: 26px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
-    no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
 }
 #placesList .info .tel {
   color: #009900;
@@ -474,8 +476,7 @@ export default {
   width: 36px;
   height: 37px;
   margin: 10px 0 0 10px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
-    no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
 }
 #placesList .item .marker_1 {
   background-position: 0 -10px;
@@ -534,5 +535,16 @@ export default {
   font-weight: bold;
   cursor: default;
   color: #777;
+}
+
+.spot-info {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 16px;
+  border-radius: 10px;
+  border: 1px solid #8484842c;
+  text-align: start;
+  width: 100%;
 }
 </style>

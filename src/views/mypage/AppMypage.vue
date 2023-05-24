@@ -1,10 +1,8 @@
 <template>
   <b-container fluid class="outer-container">
     <div class="img-container">
-      <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="810" />
-
       <div id="mypage-container" align-v="center" align-h="start">
-        <h1 style="font-family: 'Nanum Gothic Coding', sans-serif"><strong>기본 정보</strong></h1>
+        <h1 style="font-family: 'Nanum Gothic Coding', sans-serif; margin-top: 50px"><strong>기본 정보</strong></h1>
 
         <div id="private-info-box">
           <div class="box">
@@ -59,8 +57,9 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Jua:400");
 
 .outer-container {
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
+  margin: 0;
+  margin-top: 70px;
 }
 
 .top-img {
@@ -68,21 +67,20 @@ export default {
 }
 
 .img-container {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  background: no-repeat center/100% url("@/assets/img/main.png");
 }
 
 #mypage-container {
+  align-self: center;
+  justify-self: center;
   margin: 0;
-  margin-top: 100px;
-  padding-top: 30px;
-  margin-left: 20px;
-  padding-left: 10px;
-  position: absolute;
-  top: 1%;
-  left: 5%;
-  width: 600px;
-  height: 320px;
-  border-radius: 15px;
+  width: 100%;
+  height: 80%;
   background-color: rgba(255, 255, 255, 0.39);
 }
 
