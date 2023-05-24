@@ -12,37 +12,62 @@
           </b-col>
           <b-col cols="2" class="margin-area"><label>내용</label></b-col>
           <b-col cols="10" class="margin-area">
-            <b-form-textarea id="textarea" v-model="text" placeholder="내용" rows="3" max-rows="6"></b-form-textarea>
+            <b-form-textarea
+              id="textarea"
+              v-model="content"
+              placeholder="내용"
+              rows="3"
+              max-rows="6"
+            ></b-form-textarea>
           </b-col>
           <b-col cols="2" class="margin-area">
             <label>방문날짜</label>
           </b-col>
           <b-col cols="10" class="margin-area">
-            <b-form-datepicker id="example-datepicker" v-model="date" class="mb-2" placeholder="날짜 선택"></b-form-datepicker>
+            <b-form-datepicker
+              id="example-datepicker"
+              v-model="date"
+              class="mb-2"
+              placeholder="날짜 선택"
+            ></b-form-datepicker>
           </b-col>
           <b-col cols="2" class="margin-area">
             <label>사진첨부</label>
           </b-col>
           <b-col cols="10" class="margin-area">
-            <b-form-file multiple="true" v-model="files" :state="Boolean(files)" placeholder="파일을 선택" drop-placeholder="Drop file here..."></b-form-file>
-            <b-col cols="12" v-for="(file, index) in files" :key="index"> 첨부 파일: {{ file ? file.name : "" }} </b-col>
+            <b-form-file
+              multiple
+              v-model="review.files"
+              :state="Boolean(review.files)"
+              placeholder="파일 선택"
+              drop-placeholder=" 드래그해서 넣기"
+            ></b-form-file>
+            <b-col cols="12" v-for="(file, index) in review.files" :key="index" class="margin-area">
+              {{ file ? file.name : "" }}
+            </b-col>
           </b-col>
-          <b-col cols="2">방문장소:</b-col>
-          <b-col cols="10">{{ spotTitleCompute }}</b-col>
-          <b-col cols="2">주소:</b-col>
-          <b-col cols="10">{{ spotAddressCompute }}</b-col>
+          <b-col cols="2" class="margin-area">방문장소:</b-col>
+          <b-col cols="10" class="margin-area">{{ review.spotTitle }}</b-col>
+          <b-col cols="2" class="margin-area">주소:</b-col>
+          <b-col cols="10" class="margin-area">{{ review.spotAddress }}</b-col>
         </b-row>
+        <b-button class="share-button">작성하기</b-button>
       </b-col>
       <b-col cols="6" class="bound">
         <div class="map_wrap">
-          <div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden"></div>
+          <div
+            id="map"
+            style="width: 100%; height: 100%; position: relative; overflow: hidden"
+          ></div>
 
           <div id="menu_wrap" class="bg_white">
             <div class="option">
               <div>
                 <form>
                   키워드 : <input type="text" v-model="keyword" id="keyword" size="15" />
-                  <b-button @click="searchPlaces">검색하기</b-button>
+                  <b-button @click="searchPlaces" style="padding-left: 10px; padding-right: 10px"
+                    >검색</b-button
+                  >
                 </form>
               </div>
             </div>
@@ -67,16 +92,17 @@ export default {
       itemStr: "",
       ps: null,
       keyword: "",
-      files: [],
-      text: "",
       date: "",
-      spotTitle: "",
-      spotAddress: "",
       review: {
         userId: "ssafy",
-        title: "리뷰 테스트",
+        title: "",
         content: "내용",
         visitDate: "2023-05-22",
+        spotTitle: "",
+        spotAddress: "",
+        x: "",
+        y: "",
+        files: [],
       },
     };
   },
@@ -134,13 +160,39 @@ export default {
         return;
       }
     },
-    // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-    // 인포윈도우에 장소명을 표시합니다
-    // showInfowindow(marker, title, infowindow) {
-    //   let content = `<div style="padding:5px;z-index:1;">${title}</div>`;
-    //   infowindow.setContent(content);
-    //   infowindow.open(this.map, marker);
-    // },
+
+    setSpotInfo(place) {
+      this.review.spotTitle = place.place_name;
+      this.review.spotAddress = place.address_name;
+      this.review.x = place.x;
+      this.review.y = place.y;
+    },
+
+    addEvent(marker, place, infowindow, itemEl) {
+      let self = this;
+      kakao.maps.event.addListener(marker, "mouseover", function () {
+        let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
+        infowindow.setContent(content);
+        infowindow.open(this.map, marker);
+      });
+      kakao.maps.event.addListener(marker, "click", function () {
+        self.setSpotInfo(place);
+      });
+
+      kakao.maps.event.addListener(marker, "mouseout", function () {
+        infowindow.close();
+      });
+
+      itemEl.onmouseover = function () {
+        let content = `<div style="padding:5px;z-index:1;">${place.place_name}</div>`;
+        infowindow.setContent(content);
+        infowindow.open(this.map, marker);
+      };
+
+      itemEl.onmouseout = function () {
+        infowindow.close();
+      };
+    },
 
     // 검색 결과 목록과 마커를 표출하는 함수입니다
     displayPlaces(places) {
@@ -169,31 +221,7 @@ export default {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function (marker, title, map) {
-          kakao.maps.event.addListener(marker, "mouseover", function () {
-            let content = `<div style="padding:7px;z-index:1; font-family: Jua;">${title}</div>`;
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-          });
-          kakao.maps.event.addListener(marker, "click", function () {
-            this.spotTitle = marker.title;
-            this.spotAddress = marker.address_name;
-          });
-
-          kakao.maps.event.addListener(marker, "mouseout", function () {
-            infowindow.close();
-          });
-
-          itemEl.onmouseover = function () {
-            let content = `<div style="padding:5px;z-index:1;">${title}</div>`;
-            infowindow.setContent(content);
-            infowindow.open(this.map, marker);
-          };
-
-          itemEl.onmouseout = function () {
-            infowindow.close();
-          };
-        })(marker, places[i].place_name, this.map);
+        this.addEvent(marker, places[i], infowindow, itemEl);
 
         fragment.appendChild(itemEl);
       }
@@ -209,15 +237,30 @@ export default {
     // 검색결과 항목을 Element로 반환하는 함수입니다
     getListItem(index, places) {
       var el = document.createElement("li");
-      this.itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' + '<div class="info">' + "   <h5>" + places.place_name + "</h5>";
+      this.itemStr =
+        '<span class="markerbg marker_' +
+        (index + 1) +
+        '"></span>' +
+        '<div class="info" style="font-family: Jua">' +
+        "   <h6><strong>" +
+        (index + 1) +
+        ". " +
+        places.place_name +
+        "</strong></h6>";
 
       if (places.road_address_name) {
-        this.itemStr += "    <span>" + places.road_address_name + "</span>" + '   <span class="jibun gray">' + places.address_name + "</span>";
+        this.itemStr +=
+          "    <div>도로명: " +
+          places.road_address_name +
+          "</div>" +
+          '   <div class="jibun gray">지번: ' +
+          places.address_name +
+          "</div>";
       } else {
-        this.itemStr += "    <span>" + places.address_name + "</span>";
+        this.itemStr += "    <div>주소: " + places.address_name + "</div>";
       }
 
-      this.itemStr += '  <span class="tel">' + places.phone + "</span>" + "</div>";
+      this.itemStr += '  <div class="tel">전화번호: ' + places.phone + "</div>" + "</div><hr/>";
 
       el.innerHTML = this.itemStr;
       el.className = "item";
@@ -227,7 +270,8 @@ export default {
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     addMarker(position, idx) {
-      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      var imageSrc =
+          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
@@ -292,29 +336,26 @@ export default {
       }
     },
   },
-  computed: {
-    aa() {
-      return this.files;
-    },
-    spotTitleCompute() {
-      return this.spotTitle;
-    },
-    spotAddressCompute() {
-      return this.spotAddress;
-    },
-    // bb() {
-    //   return this.markers;
-    // },
-  },
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
-@import url("https://fonts.googleapis.com/css?family=Jua:400");
+.share-button,
+.share-button:focus {
+  background-color: rgba(69, 113, 180, 0.89);
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.share-button:active,
+.share-button:hover {
+  background: rgba(50, 92, 156, 0.89);
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
 
 .outer-container {
-  font-family: "Nanum Gothic Coding";
   margin-top: 75px;
   padding: 0;
 }
@@ -413,7 +454,8 @@ export default {
 }
 #placesList .info .jibun {
   padding-left: 26px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
+    no-repeat;
 }
 #placesList .info .tel {
   color: #009900;
@@ -424,7 +466,8 @@ export default {
   width: 36px;
   height: 37px;
   margin: 10px 0 0 10px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
+    no-repeat;
 }
 #placesList .item .marker_1 {
   background-position: 0 -10px;
