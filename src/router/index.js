@@ -14,7 +14,7 @@ import PlanDetail from "@/views/plan/PlanDetail";
 import PlanModify from "@/views/plan/PlanModify";
 import AppLogin from "@/views/user/AppLogin";
 import AppJoin from "@/views/user/AppJoin";
-import ShareCreate from "@/views/share/ShareCreate"
+import ShareCreate from "@/views/share/ShareCreate";
 
 import store from "@/store";
 
@@ -24,11 +24,10 @@ const onlyAuthUser = async (to, from, next) => {
   const checkUserInfo = store.getters["memberStore/checkUserInfo"];
   const checkToken = store.getters["memberStore/checkToken"];
   let token = sessionStorage.getItem("access-token");
-  console.log("로그인 처리 전", checkUserInfo, token);
+  console.log("로그인 처리 전");
 
   if (checkUserInfo != null && token) {
-    console.log("토큰 유효성 체크하러 가자!!!!");
-    await store.dispatch("memberStore/getUserInfo", token);
+    console.log("토큰 유효성 체크");
   }
   if (!checkToken || checkUserInfo === null) {
     alert("로그인 해주세요.");

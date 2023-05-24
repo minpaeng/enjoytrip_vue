@@ -52,14 +52,13 @@ export default {
   },
   created() {
     let queryPgno = this.$route.query.pgno;
-    console.log(queryPgno);
     if (typeof queryPgno == undefined) this.page = 1;
     else this.page = Number(queryPgno);
 
     this.reviewList = getReviewList(
       this.page,
       ({ data }) => {
-        // console.log(data);
+        console.log(data);
         this.reviewList = data.reviews;
         this.pageCount = data.pageCount;
         console.log(this.reviewList);
