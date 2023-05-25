@@ -17,10 +17,6 @@ export default {
   data() {
     return {};
   },
-  created() {},
-  mounted() {
-    console.log(this.top3List[0]);
-  },
   methods: {},
 };
 </script>

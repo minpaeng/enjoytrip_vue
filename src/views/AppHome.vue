@@ -23,7 +23,7 @@
         </b-col>
 
         <b-col md="auto">
-          <top-three-cards class="top3-cards" />
+          <top-three-cards class="top3-cards" :top3List="top3List" />
         </b-col>
       </b-row>
 
@@ -37,11 +37,27 @@
 
 <script>
 import TopThreeCards from "@/components/item/TopThreeCards.vue";
+import { getTop3ReviewList } from "@/api/review";
 
 export default {
   name: "HomeView",
   components: {
     TopThreeCards,
+  },
+  data() {
+    return {
+      top3List: [],
+    };
+  },
+  created() {
+    getTop3ReviewList(
+      ({ data }) => {
+        this.top3List = data;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   },
 };
 </script>
