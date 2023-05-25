@@ -2,7 +2,9 @@
   <b-container fluid class="outer-container">
     <div class="img-container">
       <div id="mypage-container" align-v="center" align-h="start">
-        <h1 style="font-family: 'Nanum Gothic Coding', sans-serif; margin-top: 50px"><strong>기본 정보</strong></h1>
+        <h1 style="font-family: 'Nanum Gothic Coding', sans-serif; margin-top: 50px">
+          <strong>기본 정보</strong>
+        </h1>
 
         <div id="private-info-box">
           <div class="box">
@@ -21,7 +23,9 @@
             <div>
               <span>가입일</span><span> {{ dateFormat }}</span>
             </div>
-            <b-button class="mypage-button" style="font-family: 'Nanum Gothic Coding', sans-serif">정보 수정</b-button>
+            <b-button class="mypage-button" style="font-family: 'Nanum Gothic Coding', sans-serif"
+              >정보 수정</b-button
+            >
           </div>
         </div>
       </div>
@@ -62,16 +66,13 @@ export default {
   margin-top: 70px;
 }
 
-.top-img {
-  opacity: 0.5;
-}
-
 .img-container {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   margin: 0;
+  height: 500px;
   background: no-repeat center/100% url("@/assets/img/main.png");
 }
 
@@ -80,7 +81,7 @@ export default {
   justify-self: center;
   margin: 0;
   width: 100%;
-  height: 80%;
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.39);
 }
 
