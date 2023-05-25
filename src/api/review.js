@@ -2,7 +2,7 @@ import { apiInstance } from "@/api/index";
 import FormData from "form-data";
 const api = apiInstance();
 
-function createReview(review, files) {
+function createReview(review, files, success, fail) {
   let data = new FormData();
   const blob = new Blob([JSON.stringify(review)], { type: "application/json" });
   data.append("review", blob);
@@ -19,16 +19,7 @@ function createReview(review, files) {
     data: data,
   };
 
-  api
-    .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-      alert("등록 완료");
-    })
-    .catch((err) => {
-      console.log(err);
-      alert("등록 실패");
-    });
+  api.request(config).then(success).catch(fail);
 }
 
 async function getReviewList(pgno, success, fail) {

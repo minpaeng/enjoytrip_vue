@@ -16,13 +16,7 @@
             <b-row>
               <b-col cols="2" class="margin-area"><label>내용</label></b-col>
               <b-col cols="10" class="margin-area">
-                <b-form-textarea
-                  id="textarea"
-                  v-model="review.content"
-                  placeholder="내용"
-                  rows="3"
-                  max-rows="6"
-                ></b-form-textarea>
+                <b-form-textarea id="textarea" v-model="review.content" placeholder="내용" rows="3" max-rows="6"></b-form-textarea>
               </b-col>
             </b-row>
             <b-row>
@@ -30,12 +24,7 @@
                 <label>방문날짜</label>
               </b-col>
               <b-col cols="10" class="margin-area">
-                <b-form-datepicker
-                  id="example-datepicker"
-                  v-model="review.visitDate"
-                  class="mb-2"
-                  placeholder="날짜 선택"
-                ></b-form-datepicker>
+                <b-form-datepicker id="example-datepicker" v-model="review.visitDate" class="mb-2" placeholder="날짜 선택"></b-form-datepicker>
               </b-col>
             </b-row>
             <b-row>
@@ -43,13 +32,7 @@
                 <label>사진첨부</label>
               </b-col>
               <b-col cols="10" class="margin-area">
-                <b-form-file
-                  multiple
-                  v-model="files"
-                  :state="Boolean(files)"
-                  placeholder="파일 선택"
-                  drop-placeholder=" 드래그해서 넣기"
-                ></b-form-file>
+                <b-form-file multiple v-model="files" :state="Boolean(files)" placeholder="파일 선택" drop-placeholder=" 드래그해서 넣기"></b-form-file>
                 <b-col cols="12" v-for="(file, index) in files" :key="index" class="margin-area">
                   {{ file ? file.name : "" }}
                 </b-col>
@@ -80,9 +63,7 @@
               <div>
                 <form>
                   키워드 : <input type="text" v-model="keyword" id="keyword" size="15" />
-                  <b-button @click="searchPlaces" style="padding-left: 10px; padding-right: 10px"
-                    >검색</b-button
-                  >
+                  <b-button @click="searchPlaces" style="padding-left: 10px; padding-right: 10px">검색</b-button>
                 </form>
               </div>
             </div>
@@ -146,8 +127,18 @@ export default {
   methods: {
     // 리뷰 작성 요청
     async create() {
-      await createReview(this.review, this.files);
-      this.$router.push({ name: "shareboard", query: { pgno: 1 } });
+      await createReview(
+        this.review,
+        this.files,
+        () => {
+          alert("등록 완료");
+          this.$router.push({ name: "shareboard", query: { pgno: 1 } });
+        },
+        (err) => {
+          console.log(err);
+          alert("failed: 모든 내용을 입력해주세요.");
+        }
+      );
     },
     // 맵 초기화
     initMap() {
@@ -279,13 +270,7 @@ export default {
         "</strong></h6>";
 
       if (places.road_address_name) {
-        this.itemStr +=
-          "    <div>" +
-          places.road_address_name +
-          "</div>" +
-          '   <div class="jibun gray">' +
-          places.address_name +
-          "</div>";
+        this.itemStr += "    <div>" + places.road_address_name + "</div>" + '   <div class="jibun gray">' + places.address_name + "</div>";
       } else {
         this.itemStr += "    <div>" + places.address_name + "</div>";
       }
@@ -300,8 +285,7 @@ export default {
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     addMarker(position, idx) {
-      var imageSrc =
-          "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
@@ -502,8 +486,7 @@ export default {
 }
 #placesList .info .jibun {
   padding-left: 26px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png)
-    no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
 }
 #placesList .info .tel {
   color: #009900;
@@ -514,8 +497,7 @@ export default {
   width: 36px;
   height: 37px;
   margin: 10px 0 0 10px;
-  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
-    no-repeat;
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
 }
 #placesList .item .marker_1 {
   background-position: 0 -10px;
