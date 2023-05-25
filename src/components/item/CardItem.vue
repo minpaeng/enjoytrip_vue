@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { validUri } from "@/api/lib/util";
+
 export default {
   name: "CardItem",
   components: {},
@@ -25,12 +27,13 @@ export default {
   },
   data() {
     return {
-      img: "",
+      img: `background: url('https://www.pharmaceutical-business-review.com/wp-content/themes/goodlife-wp-child/assets/img/no_image_available.jpg')`,
     };
   },
   created() {
-    this.img = `background-image: url(${this.plan.attractionList[0].firstImage})`;
-    if (this.img == undefined || this.img == null) this.img = "@/assets/img/main.png";
+    if (validUri(`${this.plan.attractionList[0].firstImage}`))
+      this.img = `background-image: url(${this.plan.attractionList[0].firstImage})`;
+    console.log(this.img);
   },
   methods: {},
   computed: {

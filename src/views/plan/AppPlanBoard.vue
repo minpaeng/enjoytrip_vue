@@ -7,6 +7,9 @@
             <b-button class="plan-button">계획 세우기</b-button>
           </router-link>
         </b-row>
+        <b-row v-show="planSize == 0" class="no-data-box">
+          <no-data-info-box :msg="msg" />
+        </b-row>
         <b-row align-h="start" align-v="start" cols="5" style="margin: 0; padding: 0">
           <router-link
             v-for="plan in plans"
@@ -38,6 +41,7 @@
 import CardItem from "@/components/item/CardItem.vue";
 import { findPlansByuserId } from "@/api/plan";
 import { mapState } from "vuex";
+import NoDataInfoBox from "@/components/NoDataInfoBox.vue";
 
 const memberStore = "memberStore";
 
@@ -45,12 +49,14 @@ export default {
   name: "AppPlanBoard",
   components: {
     CardItem,
+    NoDataInfoBox,
   },
   data() {
     return {
       page: 1,
       pageCount: 1,
       plans: [],
+      msg: "플랜을 등록해주세요.",
     };
   },
   created() {
@@ -80,6 +86,9 @@ export default {
   },
   computed: {
     ...mapState(memberStore, ["userInfo"]),
+    planSize() {
+      return this.plans.length;
+    },
   },
 };
 </script>
@@ -93,6 +102,16 @@ export default {
   padding-right: 0;
   padding-top: 71px;
   font-family: Jua;
+}
+
+.no-data-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff73;
+  margin: 30px;
+  height: 50px;
+  border-radius: 10px;
 }
 
 .plan-container {
