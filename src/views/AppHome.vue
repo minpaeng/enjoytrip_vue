@@ -4,32 +4,41 @@
       <b-card
         overlay
         :img-src="require('@/assets/img/main.png')"
-        img-height="200px"
+        img-height="650px"
         img-alt="Card Image"
         text-variant="white"
         title="Enjoy Trip"
-        sub-title="여행 계획, 일정 공유"
+        sub-title="x"
         sub-title-text-variant="white"
+        title-tag="h1"
+        sub-title-tag="h6"
       >
-        <b-card-text>으아ㅏ아ㅏㅏㅏ </b-card-text>
+        <b-card-text text-tag="h5">여행 계획, 일정 공유</b-card-text>
       </b-card>
     </div>
 
     <div>
       <b-row id="main-plan-container" align-h="center">
-        <b-col md="auto" align-v="center" align-h="start">
-          <b-row md="auto">여행 계획을 세우고 사람들과 공유해요.</b-row>
-          <b-row><b-button class="plan-button">계획 세우기</b-button></b-row>
+        <b-col cols="12" align-v="center" align-h="start">
+          <b-row class="tt">
+            <b-col md="auto">여행 계획을 세우고 관리해요.</b-col>
+            <router-link to="/plancreate">
+              <b-button class="plan-button">계획 세우기</b-button>
+            </router-link>
+            <b-col md="auto" style="text-align: center; overflow: hidden">
+              <img src="@/assets/img/main_plan.png" class="img-plan" />
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="auto">여행 후기를 공유하고 추천해요.</b-col>
+            <router-link to="/reviewcreate">
+              <b-button class="plan-button">후기 작성</b-button>
+            </router-link>
+            <b-col md="auto">
+              <top-three-cards class="top3-cards" :top3List="top3List" />
+            </b-col>
+          </b-row>
         </b-col>
-
-        <b-col md="auto">
-          <top-three-cards class="top3-cards" :top3List="top3List" />
-        </b-col>
-      </b-row>
-
-      <b-row class="board-container" align-h="center">
-        <div>임시 이미지</div>
-        <b-img src="https://picsum.photos/300/200/?image=41" fluid-grow alt="main image"></b-img>
       </b-row>
     </div>
   </b-container>
@@ -75,6 +84,28 @@ export default {
 
 #main-img {
   font-weight: bold;
+}
+
+.img-box-plan {
+  display: flex;
+  flex-direction: start;
+}
+
+.tt {
+  background-color: rgba(0, 61, 194, 0.123);
+  padding-top: 50px;
+  margin-top: 0;
+  margin-bottom: 80px;
+  padding-left: 30px;
+}
+
+.img-plan {
+  margin: 50px;
+  border: 1px solid rgba(156, 156, 156, 0.281);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  object-fit: cover;
+  width: 90%;
 }
 
 #main-plan-container {

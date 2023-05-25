@@ -1,16 +1,25 @@
 <template>
   <b-col class="review-card">
-    <router-link :to="{name: 'shareboarddetail', params: {no: review.reviewId}}">
-      <b-card class="card-item" :title="review.title" :img-src="review.files[0].filePath" img-alt="Image" img-top img-width="100%" img-height="300">
+    <router-link :to="{ name: 'shareboarddetail', params: { no: review.reviewId } }">
+      <b-card
+        class="card-item"
+        :title="review.title"
+        :img-src="review.files[0].filePath"
+        img-alt="Image"
+        img-top
+        img-width="100%"
+        img-height="300"
+      >
         <b-card-text>{{ review.content }}</b-card-text>
         <template #footer>
           <small class="text-muted"
             >작성자: {{ review.userId }} <br />
-            방문일자: {{ review.visitDate }}</small
-          >
+            방문일자: {{ cardDate }}<br />
+            좋아요: {{ review.count }}
+          </small>
         </template>
       </b-card>
-    </router-link> 
+    </router-link>
   </b-col>
 </template>
 
@@ -26,6 +35,11 @@ export default {
   },
   created() {},
   methods: {},
+  computed: {
+    cardDate() {
+      return this.review.visitDate.split(" ")[0];
+    },
+  },
 };
 </script>
 

@@ -1,94 +1,144 @@
 <template>
-    <body>
-      <div class = "row justify-content-center" id = "container" style = "margin-top: 100px;">
-        <h1
-          style="
-              font-weight: bold;
-              text-decoration-line: underline;
-              text-decoration-thickness: 6px;
-              text-decoration-color: rgb(189, 201, 255);
-          "
-          >
-          후기 상세보기
-          </h1>
-      </div>
-        <div class = "row" id = "container">
-            <div class = "col md-6">
-                <b-row class="text-center">
-                    <div class="col m-6">
-                        <h1
-                        style="
-                            font-weight: bold;
-                        "
-                        >
-                        제목: {{ shareBoardDto.title }}
-                        </h1>
-                        <p class = "text-wrapper" style = "text-align: right; margin-right: 25%; color: black">
-                            방문일자: {{ shareBoardDto.visitDate }}
-                        </p>
-                        <p class = "text-wrapper" style = "text-align: right; margin-right: 25%; color: black">
-                            조회수: {{ shareBoardDto.hit }}
-                        </p>
-                        
-                        <!-- <carousel-3d :autoplay="true" :autoplay-timeout="3000" :controls-visible="true" :controls-prev-html="'&#x2039; '" :controls-next-html="'&#x203A;'" :controls-width="10" :controls-height="30" :clickable="false">
+  <body>
+    <div class="row justify-content-center" id="container" style="margin-top: 100px">
+      <h1
+        style="
+          font-weight: bold;
+          text-decoration-line: underline;
+          text-decoration-thickness: 6px;
+          text-decoration-color: rgb(189, 201, 255);
+        "
+      >
+        후기 상세보기
+      </h1>
+    </div>
+    <div class="row" id="container">
+      <div class="col md-6">
+        <b-row class="text-center">
+          <div class="col m-6">
+            <h1 style="font-weight: bold">제목: {{ shareBoardDto.title }}</h1>
+            <p class="text-wrapper" style="text-align: right; margin-right: 25%; color: black">
+              방문일자: {{ shareBoardDto.visitDate }}
+            </p>
+            <p class="text-wrapper" style="text-align: right; margin-right: 25%; color: black">
+              조회수: {{ shareBoardDto.hit }}
+            </p>
+
+            <!-- <carousel-3d :autoplay="true" :autoplay-timeout="3000" :controls-visible="true" :controls-prev-html="'&#x2039; '" :controls-next-html="'&#x203A;'" :controls-width="10" :controls-height="30" :clickable="false">
                           <slide v-for="(filePath, index) in files" :key="parseInt(index)" :index="parseInt(index)">
                           <img :src="filePath" class="slideImage">
                           </slide>
                         </carousel-3d> -->
 
-                        <!-- <carousel>
+            <!-- <carousel>
                           <slide v-for="(filePath, index) in files" :key="parseInt(index)" :index="parseInt(index)">
                           <img :src="filePath" class="slideImage">
                           </slide>
                         </carousel> -->
-                        <div class = "d-flex justify-content-center align-items-center" style = "overflow-y : auto;">
-                          <b-carousel
-                            id="carousel-1"
-                            v-model="slide"
-                            :interval="4000"
-                            controls
-                            indicators
-                            background="#ababab"
-                            class="custom-carousel"
-                            style="text-shadow: 1px 1px 2px #333;"
-                            @sliding-start="onSlideStart" 
-                            @sliding-end="onSlideEnd"
-                          >
-                            <b-carousel-slide
-                              v-for="(filePath, index) in files"
-                              :key = "parseInt(index)"
-                              :index = "parseInt(index)"
-                              :img-src="filePath"
-                              style="width: 400px; height: 400px;"
-                            ></b-carousel-slide>
-                          </b-carousel>
-                        </div>
-                        
-                        <p class = "text-wrapper" style = "color: black; font-size: 20px;">이미지를 넘기세요</p>
-
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-                        <div>
-                          <span @click="toggleLike" :class="{ 'heart-icon': true, 'liked': liked }">
-                            <font-awesome-icon :icon="[liked ? 'fas' : 'far', 'heart']" />
-                          </span>
-                          <span> 좋아요: {{ likeCount }}</span>
-                        </div>
-
-                        <label for="content" class="text-wrapper" style="color: black; font-size: 20px; display: block;">내용:</label>
-
-                        <input class = "fixed-size-input" type="text" id="content" name="content" value="" disabled style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 20px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;  overflow:scroll; width:500px; height:150px;"><br>
-                        
-                    </div>
-                </b-row>
+            <div class="d-flex justify-content-center align-items-center" style="overflow-y: auto">
+              <b-carousel
+                id="carousel-1"
+                v-model="slide"
+                :interval="4000"
+                controls
+                indicators
+                background="#ababab"
+                class="custom-carousel"
+                style="text-shadow: 1px 1px 2px #333"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+              >
+                <b-carousel-slide
+                  v-for="(filePath, index) in files"
+                  :key="parseInt(index)"
+                  :index="parseInt(index)"
+                  :img-src="filePath"
+                  style="width: 400px; height: 400px"
+                ></b-carousel-slide>
+              </b-carousel>
             </div>
-            <div class="col md-6">
-              <label for="location" class="text-wrapper" style="color: black; font-size: 20px; display: block;">장소명:</label>
-              <input class="fixed-size-input" type="text" id="location" name="location" value="" disabled style="font-size: 20px; font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 20px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px; overflow: scroll; width: 100%; height: 10%; text-align: center;"><br>
-              <div id="map" class="map-container" style="height: 70%; margin-bottom: 10%; margin-top: 5%"></div>
+
+            <p class="text-wrapper" style="color: black; font-size: 20px">이미지를 넘기세요</p>
+
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
+
+            <div>
+              <span @click="toggleLike" :class="{ 'heart-icon': true, liked: liked }">
+                <font-awesome-icon :icon="[liked ? 'fas' : 'far', 'heart']" />
+              </span>
+              <span> 좋아요: {{ likeCount }}</span>
             </div>
-        </div>
-    </body>
+
+            <label
+              for="content"
+              class="text-wrapper"
+              style="color: black; font-size: 20px; display: block"
+              >내용:</label
+            >
+
+            <input
+              class="fixed-size-input"
+              type="text"
+              id="content"
+              name="content"
+              value=""
+              disabled
+              style="
+                font-family: 'Lobster', sans-serif;
+                font-weight: bold;
+                font-size: 20px;
+                color: #333;
+                background-color: #f9f9f9;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                overflow: scroll;
+                width: 500px;
+                height: 150px;
+              "
+            /><br />
+          </div>
+        </b-row>
+      </div>
+      <div class="col md-6">
+        <label
+          for="location"
+          class="text-wrapper"
+          style="color: black; font-size: 20px; display: block"
+          >장소명:</label
+        >
+        <input
+          class="fixed-size-input"
+          type="text"
+          id="location"
+          name="location"
+          value=""
+          disabled
+          style="
+            font-size: 20px;
+            font-family: 'Lobster', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: scroll;
+            width: 100%;
+            height: 10%;
+            text-align: center;
+          "
+        /><br />
+        <div
+          id="map"
+          class="map-container"
+          style="height: 70%; margin-bottom: 10%; margin-top: 5%"
+        ></div>
+      </div>
+    </div>
+  </body>
 </template>
 
 <style scoped>
@@ -127,16 +177,17 @@
 }
 
 .text-wrapper {
-  color: white; font-family: 'Lobster', sans-serif, bold;
+  color: white;
+  font-family: "Lobster", sans-serif, bold;
 }
 
-.prev[data-v-05517ad0]{
+.prev[data-v-05517ad0] {
   left: 244px !important;
-  top: 0px  !important;
+  top: 0px !important;
 }
-.next[data-v-05517ad0]{
+.next[data-v-05517ad0] {
   right: 225px !important;
-    top: 0px  !important;
+  top: 0px !important;
 }
 .heart-icon {
   cursor: pointer;
@@ -150,22 +201,24 @@
 .heart-icon.liked .svg-inline--fa {
   color: red;
 }
-
 </style>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"></script>
+<script
+  type="text/javascript"
+  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"
+></script>
 
 <script>
-import { apiInstance } from '@/api';
-import {Carousel, Slide} from 'vue-carousel';
+import { Carousel, Slide } from "vue-carousel";
 // import {Carousel3d, Slide} from 'vue-carousel-3d';
-import Vue from 'vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-// const serviceKey = "h%2Bq2O463Q1WNgyJi1HEzzKzPaHFSF0C6CEK6XQSiZ2m6PiXnVMeb2VVzqs2pGTzJlId3sgvnwJf0Ur8HY4t4Aw%3D%3D";
+import Vue from "vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { makeLike, deleteLike, getReview, checkLike } from "@/api/review";
+import { mapState, mapGetters } from "vuex";
+const memberStore = "memberStore";
 
 // Import the individual icons you want to use
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 // Add the imported icons to the library
 library.add(faHeart);
@@ -173,126 +226,154 @@ library.add(faHeart);
 // Vue.use(Carousel3d);
 Vue.use(Carousel);
 
-Vue.component
-
-// var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-//   mapOption = {
-//     center: new kakao.maps.LatLng(37.500613, 127.036431), // 지도의 중심좌표
-//     level: 5,
-//   };
-
-// var map = new kakao.maps.Map(mapContainer, mapOption);
+Vue.component;
 
 export default {
-    name: "ShareDetail",
-    components: {
-        // Carousel3d,
-        Carousel,
-        Slide, 
-    },
-    data() {
-        return {
-            slide: 0,
-            sliding: null,
-            id: null,
-            shareBoardDto: {},
-            fileObjects: [],
-            files: [],
-            isThumbFilled: false,
-            likeCount: 0,
-            liked: false,
-        };
-    },
-    created() {},
-    mounted() {
-        this.id = this.$route.params.no;
-
-        this.getShareBoardDetail();
-
-        this.$nextTick(() => {
-            setTimeout(() => {
-            window.dispatchEvent(new Event('resize'));
-            }, 100);
-        });
-
-        if (window.kakao && window.kakao.maps) {
-          this.initMap();
-        } else {
-          const script = document.createElement("script");
-          /* global kakao */
-          script.onload = () => kakao.maps.load(this.initMap);
-          script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}`;
-          document.head.appendChild(script);
+  name: "ShareDetail",
+  components: {
+    // Carousel3d,
+    Carousel,
+    Slide,
+  },
+  data() {
+    return {
+      slide: 0,
+      sliding: null,
+      id: null,
+      shareBoardDto: {},
+      fileObjects: [],
+      files: [],
+      isThumbFilled: false,
+      likeCount: 0,
+      liked: false,
+    };
+  },
+  created() {},
+  mounted() {
+    this.id = this.$route.params.no;
+    checkLike(
+      { userId: this.userInfo.userId, reviewId: this.id },
+      ({ data }) => {
+        if (data.message == "true") {
+          this.liked = true;
+          console.log("liked", this.liked);
         }
-    },
-    methods: {
-        toggleLike() {
-          if (this.liked) {
-            this.likeCount--;
-          } else {
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    this.getShareBoardDetail();
+
+    this.$nextTick(() => {
+      setTimeout(() => {
+        window.dispatchEvent(new Event("resize"));
+      }, 100);
+    });
+
+    if (window.kakao && window.kakao.maps) {
+      this.initMap();
+    } else {
+      const script = document.createElement("script");
+      /* global kakao */
+      script.onload = () => kakao.maps.load(this.initMap);
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}`;
+      document.head.appendChild(script);
+    }
+  },
+  methods: {
+    toggleLike() {
+      if (!this.liked) {
+        makeLike(
+          { userId: this.userInfo.userId, reviewId: this.id },
+          () => {
+            console.log("좋아요 표시 성공");
             this.likeCount++;
+          },
+          () => {
+            console.log("좋아요 표시 실패");
           }
-          this.liked = !this.liked;
-        },
-        onSlideStart(slide) {
-          this.sliding = true
-        },
-        onSlideEnd(slide) {
-          this.sliding = false
-        },
-        async getShareBoardDetail() {
-            try {
-                let url = `http://localhost/api/review/${this.id}`
-                
-                let response = await apiInstance().get(
-                url
-                );
-                this.shareBoardDto = response.data;
-                this.fileObjects = response.data.files;
-                
-                for(let i = 0; i < this.fileObjects.length; i++){
-                    this.files.push(this.fileObjects[i].filePath);
-                }
+        );
+      } else {
+        deleteLike(
+          { userId: this.userInfo.userId, reviewId: this.id },
+          () => {
+            console.log("좋아요 취소 성공");
+            this.likeCount--;
+          },
+          () => {
+            console.log("좋아요 취소 실패");
+          }
+        );
+      }
+      this.liked = !this.liked;
+    },
+    onSlideStart(slide) {
+      this.sliding = true;
+    },
+    onSlideEnd(slide) {
+      this.sliding = false;
+    },
+    async getShareBoardDetail() {
+      console.log(this.id);
+      try {
+        await getReview(
+          this.id,
+          ({ data }) => {
+            console.log("로딩 성공");
+            this.shareBoardDto = data;
+            this.fileObjects = data.files;
+            this.likeCount = this.shareBoardDto.count;
 
-                document.getElementById("content").value = this.shareBoardDto.content;  
-                document.getElementById("location").value = this.shareBoardDto.spotName + " " + this.shareBoardDto.spotAddress
-                
-                this.moveCenter(this.shareBoardDto.x, this.shareBoardDto.y);
-            } catch (err) {
-                console.log("후기 게시글 목록 조회 오류: " + err);
+            for (let i = 0; i < this.fileObjects.length; i++) {
+              this.files.push(this.fileObjects[i].filePath);
             }
-        },
-        initMap() {
-          const container = document.getElementById("map");
-          const options = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 5,
-          };
 
-          //지도 객체를 등록합니다.
-          //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-          this.map = new kakao.maps.Map(container, options);
-          console.log(this.map);
-        },
-        moveCenter(lat, lng) {
-          try {
-            this.map.setCenter(new kakao.maps.LatLng(lat, lng));
-          }catch(err){
-            console.log("에러");
-            console.log(this.map);
-            console.log(err);
+            document.getElementById("content").value = this.shareBoardDto.content;
+            document.getElementById("location").value =
+              this.shareBoardDto.spotName + " " + this.shareBoardDto.spotAddress;
+
+            this.moveCenter(this.shareBoardDto.x, this.shareBoardDto.y);
+          },
+          function () {
+            console.log("로딩 실패");
           }
-        },
-        myFunction(x) {
-          if (this.thumbActivation === true) {
-            console.log("A");
-            x.classList.toggle("fa-thumbs-down");
-            this.thumbActivation = false;
-          }else {
-            console.log("B");
-            x.classList.toggle("fa-thumbs-down");
-            this.thumbActivation = true;
-          }
+        );
+      } catch (err) {
+        console.log("후기 게시글 목록 조회 오류: " + err);
+      }
+    },
+    initMap() {
+      const container = document.getElementById("map");
+      const options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 5,
+      };
+
+      //지도 객체를 등록합니다.
+      //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+      this.map = new kakao.maps.Map(container, options);
+      console.log(this.map);
+    },
+    moveCenter(lat, lng) {
+      try {
+        this.map.setCenter(new kakao.maps.LatLng(lat, lng));
+      } catch (err) {
+        console.log("에러");
+        console.log(this.map);
+        console.log(err);
+      }
+    },
+    myFunction(x) {
+      if (this.thumbActivation === true) {
+        console.log("A");
+        x.classList.toggle("fa-thumbs-down");
+        this.thumbActivation = false;
+      } else {
+        console.log("B");
+        x.classList.toggle("fa-thumbs-down");
+        this.thumbActivation = true;
+      }
     },
     displayMarker() {
       // 기존의 마커를 삭제합니다
@@ -350,6 +431,13 @@ export default {
 
       this.map.setCenter(iwPosition);
     },
-}
-}
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
+    ...mapGetters(memberStore, ["checkUserInfo"]),
+    dateFormat() {
+      return this.userInfo.joinDate.split(" ")[0];
+    },
+  },
+};
 </script>

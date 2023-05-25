@@ -3,14 +3,21 @@
     <div class="img-container">
       <img class="top-img" src="@/assets/img/main.png" alt="main img" width="100%" height="810" />
 
-      <b-row class="share-container" align-v="center" align-h="center" style="margin: 0; padding: 0">
+      <b-row
+        class="share-container"
+        align-v="center"
+        align-h="center"
+        style="margin: 0; padding: 0"
+      >
         <b-col md="auto"><strong>여행 후기를 사람들과 공유해요.</strong></b-col>
         <b-col md="auto"
-          ><router-link to="/shareboard/create"><b-button class="share-button">후기 작성하기</b-button></router-link></b-col
+          ><router-link to="/shareboard/create"
+            ><b-button class="share-button">후기 작성하기</b-button></router-link
+          ></b-col
         >
         <b-col md="auto" style="margin: 0; padding: 0">
           <b-row class="card-container" align-h="center" style="margin: 0; padding: 0">
-            <h5><strong>top3</strong></h5>
+            <h3 style="font-family: Jua"><strong>top3</strong></h3>
             <top-three-cards id="card-list" :top3List="top3List" />
           </b-row>
         </b-col>
@@ -23,7 +30,11 @@
         <b-row align-h="center">
           <template>
             <div class="overflow-auto">
-              <b-pagination-nav :link-gen="linkGen" :number-of-pages="pageCount" use-router></b-pagination-nav>
+              <b-pagination-nav
+                :link-gen="linkGen"
+                :number-of-pages="pageCount"
+                use-router
+              ></b-pagination-nav>
             </div>
           </template>
         </b-row>
@@ -70,7 +81,6 @@ export default {
     getTop3ReviewList(
       ({ data }) => {
         this.top3List = data;
-        console.log("ㅠㅠ", data);
       },
       (err) => {
         console.log(err);
@@ -91,8 +101,7 @@ export default {
 </script>
 
 <style scoped>
-/* @import url("@/assets/css/common.css"); */
-/* @import url("@/assets/css/shareboard.css"); */
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
 
 .outer-container {
   padding-left: 0;

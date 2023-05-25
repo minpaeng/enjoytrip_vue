@@ -39,4 +39,23 @@ async function getTop3ReviewList(success, fail) {
   await api.get(`/review/top3`).then(success).catch(fail);
 }
 
-export { createReview, getReviewList, getTop3ReviewList };
+async function getReview(reviewId, success, fail) {
+  await api.get(`/review/${reviewId}`).then(success).catch(fail);
+}
+
+async function checkLike(like, success, fail) {
+  api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
+  await api.get(`/great/${like.userId}/${like.reviewId}`, like).then(success).catch(fail);
+}
+
+async function makeLike(like, success, fail) {
+  api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
+  await api.post(`/great`, like).then(success).catch(fail);
+}
+
+async function deleteLike(like, success, fail) {
+  api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
+  await api.delete(`/great/${like.userId}/${like.reviewId}`, like).then(success).catch(fail);
+}
+
+export { createReview, getReviewList, getTop3ReviewList, getReview, makeLike, deleteLike, checkLike };
