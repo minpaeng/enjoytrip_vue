@@ -76,6 +76,7 @@ const routes = [
   {
     path: "/shareboard/create",
     name: "sharecreate",
+    beforeEnter: onlyAuthUser,
     component: ShareCreate,
   },
   {
