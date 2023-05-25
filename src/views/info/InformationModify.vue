@@ -37,9 +37,7 @@
             <div class="d-flex ps-0 justify-content-center">
               <button type="button" id="btn-modify-post" class="col-md-3 col-lg-2 btn btn-primary btn-sm me-1" @click="modifyInfoPost">글 수정</button>
               <!-- <button type="button" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm post-cancel">목록</button> -->
-              <router-link to="/infoboard?pgno=1" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm">
-              목록
-              </router-link>
+              <router-link to="/infoboard?pgno=1" class="col-md-3 btn col-lg-2 btn-outline-danger btn-sm"> 목록 </router-link>
             </div>
           </div>
         </div>
@@ -49,7 +47,8 @@
 </template>
 
 <script>
-import {apiInstance} from "@/api/index";
+import { apiInstance } from "@/api/index";
+const api = apiInstance();
 
 export default {
   name: "InformationModify",
@@ -67,7 +66,8 @@ export default {
   methods: {
     async getInfoPost() {
       try {
-        let response = await apiInstance().get(`/information/detail/${this.id}`);
+        console.log(this.id);
+        let response = await api.get(`/information/detail/${this.id}`);
         console.log(response.data);
         this.post = response.data;
       } catch (err) {
@@ -76,11 +76,12 @@ export default {
     },
     async modifyInfoPost() {
       try {
-        await apiInstance().put(`/information/modify/${this.id}`, this.post);
+        api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
+        api.put(`/information/modify/${this.id}`, this.post);
         alert("수정 완료");
-        this.$router.push("/infoboard");
+        this.$router.push("/infoboard?pgno=1&key=&word=");
       } catch (err) {
-        console.log(`공지사항 게시글 수정 실패: ${err}`);
+        alert(`공지사항 게시글 수정 실패: ${err}`);
       }
     },
   },

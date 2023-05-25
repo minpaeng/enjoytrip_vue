@@ -25,7 +25,11 @@
 
 <script>
 import CommentItem from "@/components/item/CommentItem.vue";
-import {apiInstance} from "@/api/index";
+import { mapState } from "vuex";
+const memberStore = "memberStore";
+import { apiInstance } from "@/api/index";
+const api = apiInstance();
+
 export default {
   name: "CommentComp",
   components: {
@@ -43,16 +47,21 @@ export default {
   methods: {
     async writeComment() {
       try {
-        let post = {
+        let comment = {
+          userId: this.userInfo.userId,
           infoBoardId: this.id,
           content: this.content,
         };
-        await apiInstance().post(`information/${this.id}/comment`, post);
+        api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
+        api.post(`information/${this.id}/comment`, comment);
         window.location.reload();
       } catch (err) {
         console.log(`댓글 등록 실패: ${err}`);
       }
     },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
 };
 </script>

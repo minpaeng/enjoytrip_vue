@@ -13,7 +13,7 @@
             margin-top: 100px;
           "
         >
-          공지사항
+          자유게시판
         </h1>
       </div>
     </b-row>
@@ -81,7 +81,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import { apiInstance } from "@/api/index";
+const api = apiInstance();
 
 export default {
   name: "InformationView",
@@ -118,9 +119,9 @@ export default {
       try {
         if (typeof pgno == "undefined") pgno = 1;
 
-        let uri = `http://localhost/api/information/list?pgno=${pgno}&key=${key}&word=${word}`;
+        let uri = `/information/list?pgno=${pgno}&key=${key}&word=${word}`;
         //async 사용 이유
-        let response = await axios.get(uri);
+        let response = await api.get(uri);
 
         this.pageCount = response.data.pageCount;
         this.list = response.data.list;

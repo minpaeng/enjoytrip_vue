@@ -8,23 +8,29 @@
     <div class="col-lg-8 col-md-10 col-sm-12">
       <div class="row my-2 justify-content-center align-items-center">
         <div class="col-md-8 d-flex justify-content-center">
-          <h2 class="text-secondary mb-0" style="padding-right: 10px;">{{ post.title }}</h2> <!-- Remove mb-4 class -->
+          <h2 class="text-secondary mb-0" style="padding-right: 10px">{{ post.title }}</h2>
+          <!-- Remove mb-4 class -->
         </div>
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-          <hr class="my-3"> <!-- Reduce margin of the dividing line -->
+          <hr class="my-3" />
+          <!-- Reduce margin of the dividing line -->
           <div class="clearfix align-content-center">
-            <div class="text-secondary" style="word-wrap: break-word;">{{ post.content }}</div>
+            <div class="text-secondary" style="word-wrap: break-word">{{ post.content }}</div>
           </div>
         </div>
       </div>
       <div class="divider mb-3"></div>
-      
+
       <div class="d-flex justify-content-end">
         <button type="button" id="btn-list" class="btn btn-outline-primary mb-3" @click="navTo('infoboard')">글목록</button>
-        <button type="button" id="btn-mv-modify" class="btn btn-outline-success mb-3 ms-1" @click="navTo('modify')">글수정</button>
-        <button type="button" id="btn-delete" class="btn btn-outline-danger mb-3 ms-1" @click="deleteInfoPost">글삭제</button>
+        <button v-show="userInfo.userId == post.userId" type="button" id="btn-mv-modify" class="btn btn-outline-success mb-3 ms-1" @click="navTo('modify')">
+          글수정
+        </button>
+        <button v-if="userInfo.userId == post.userId" type="button" id="btn-delete" class="btn btn-outline-danger mb-3 ms-1" @click="deleteInfoPost">
+          글삭제
+        </button>
       </div>
       <comment-comp :comments="comments" :id="String(id)"></comment-comp>
     </div>
@@ -32,8 +38,11 @@
 </template>
 
 <script>
-import {apiInstance} from "@/api/index";
+import { mapState } from "vuex";
+import { apiInstance } from "@/api/index";
 import CommentComp from "@/components/comment/CommentComp.vue";
+const memberStore = "memberStore";
+const api = apiInstance();
 
 export default {
   name: "InformationDetail",
@@ -48,8 +57,7 @@ export default {
       comments: [],
     };
   },
-  created() {
-  },
+  created() {},
   mounted() {
     this.id = this.$route.params.no;
     this.getInfoPost();
@@ -58,9 +66,7 @@ export default {
   methods: {
     async getInfoPost() {
       try {
-        let response = await apiInstance().get(
-          `http://localhost/api/information/detail/${this.id}`
-        );
+        let response = await api.get(`/information/detail/${this.id}`);
         this.post = response.data;
       } catch (err) {
         console.log("공지사항 게시글 목록 조회 오류: " + err);
@@ -69,9 +75,10 @@ export default {
 
     async deleteInfoPost() {
       try {
-        await apiInstance().delete(`/information/delete/${this.id}`);
+        api.defaults.headers["Authorization"] = sessionStorage.getItem("access-token");
+        api.delete(`/information/delete/${this.id}`);
         alert("삭제 완료");
-        this.$router.push("/infoboard");
+        this.$router.push("/infoboard?pgno=1&key=&word=");
       } catch (err) {
         console.log(`공지사항 게시글 삭제 실패: ${err}`);
       }
@@ -80,9 +87,7 @@ export default {
     async getInfoComments() {
       try {
         console.log(`/information/${this.id}/comment`);
-        let response = await apiInstance().get(
-          `http://localhost/api/information/${this.id}/comment`
-        );
+        let response = await api.get(`/information/${this.id}/comment`);
         this.commentPageCount = response.data.pageCount;
         this.comments = response.data.list;
       } catch (err) {
@@ -96,6 +101,9 @@ export default {
         this.$router.push({ path: `/infoboard/${location}/${this.id}` });
       }
     },
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
 };
 </script>
