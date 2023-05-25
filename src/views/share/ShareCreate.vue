@@ -51,6 +51,7 @@
           </b-col>
           <b-col cols="12">
             <b-button class="share-button" @click="create">작성하기</b-button>
+            <b-button class="share-button" @click="$router.push({ name: 'shareboard', query: { pgno: 1 } })">목록가기</b-button>
           </b-col>
         </b-row>
       </b-col>
@@ -353,22 +354,7 @@ export default {
 };
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
-@import url("https://fonts.googleapis.com/css?family=Jua:400");
-
-#map {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.left-box {
-  display: flex;
-  justify-content: center;
-}
-
+<style scoped>
 .share-button,
 .share-button:focus {
   background-color: rgba(69, 113, 180, 0.89);
@@ -383,6 +369,19 @@ export default {
   border: none;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
+
+#map {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.left-box {
+  display: flex;
+  justify-content: center;
+}
+
 .review-box {
   margin: 0;
   padding: 30px;
@@ -407,6 +406,11 @@ export default {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+</style>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
 
 .map_wrap,
 .map_wrap * {
