@@ -1,14 +1,7 @@
 <template>
-  <body>
+  <div>
     <div class="row justify-content-center" id="container" style="margin-top: 100px">
-      <h1
-        style="
-          font-weight: bold;
-          text-decoration-line: underline;
-          text-decoration-thickness: 6px;
-          text-decoration-color: rgb(189, 201, 255);
-        "
-      >
+      <h1 style="font-weight: bold; text-decoration-line: underline; text-decoration-thickness: 6px; text-decoration-color: rgb(189, 201, 255)">
         후기 상세보기
       </h1>
     </div>
@@ -17,12 +10,8 @@
         <b-row class="text-center">
           <div class="col m-6">
             <h1 style="font-weight: bold">제목: {{ shareBoardDto.title }}</h1>
-            <p class="text-wrapper" style="text-align: right; margin-right: 25%; color: black">
-              방문일자: {{ shareBoardDto.visitDate }}
-            </p>
-            <p class="text-wrapper" style="text-align: right; margin-right: 25%; color: black">
-              조회수: {{ shareBoardDto.hit }}
-            </p>
+            <p class="text-wrapper" style="text-align: right; margin-right: 25%; color: black">방문일자: {{ shareBoardDto.visitDate }}</p>
+            <p class="text-wrapper" style="text-align: right; margin-right: 25%; color: black">조회수: {{ shareBoardDto.hit }}</p>
 
             <!-- <carousel-3d :autoplay="true" :autoplay-timeout="3000" :controls-visible="true" :controls-prev-html="'&#x2039; '" :controls-next-html="'&#x203A;'" :controls-width="10" :controls-height="30" :clickable="false">
                           <slide v-for="(filePath, index) in files" :key="parseInt(index)" :index="parseInt(index)">
@@ -60,10 +49,7 @@
 
             <p class="text-wrapper" style="color: black; font-size: 20px">이미지를 넘기세요</p>
 
-            <link
-              rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-            />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
             <div>
               <span @click="toggleLike" :class="{ 'heart-icon': true, liked: liked }">
@@ -72,12 +58,7 @@
               <span> 좋아요: {{ likeCount }}</span>
             </div>
 
-            <label
-              for="content"
-              class="text-wrapper"
-              style="color: black; font-size: 20px; display: block"
-              >내용:</label
-            >
+            <label for="content" class="text-wrapper" style="color: black; font-size: 20px; display: block">내용:</label>
 
             <input
               class="fixed-size-input"
@@ -103,12 +84,7 @@
         </b-row>
       </div>
       <div class="col md-6">
-        <label
-          for="location"
-          class="text-wrapper"
-          style="color: black; font-size: 20px; display: block"
-          >장소명:</label
-        >
+        <label for="location" class="text-wrapper" style="color: black; font-size: 20px; display: block">장소명:</label>
         <input
           class="fixed-size-input"
           type="text"
@@ -131,17 +107,30 @@
             text-align: center;
           "
         /><br />
-        <div
-          id="map"
-          class="map-container"
-          style="height: 70%; margin-bottom: 10%; margin-top: 5%"
-        ></div>
+        <div id="map" class="map-container" style="height: 70%; margin-bottom: 10%; margin-top: 5%"></div>
       </div>
     </div>
-  </body>
+    <b-button class="share-button" @click="$router.push({ name: 'shareboard', query: { pgno: 1 } })">목록가기</b-button>
+  </div>
 </template>
 
 <style scoped>
+.share-button,
+.share-button:focus {
+  background-color: rgba(69, 113, 180, 0.89);
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  margin-bottom: 50px;
+}
+
+.share-button:active,
+.share-button:hover {
+  background: rgba(50, 92, 156, 0.89);
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
 .thumb-filled {
   color: black;
 }
@@ -203,10 +192,7 @@
 }
 </style>
 
-<script
-  type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"
-></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2b9c9a29b813d54c215be430ea52d9db&libraries=services,clusterer,drawing"></script>
 
 <script>
 import { Carousel, Slide } from "vue-carousel";
@@ -330,8 +316,7 @@ export default {
             }
 
             document.getElementById("content").value = this.shareBoardDto.content;
-            document.getElementById("location").value =
-              this.shareBoardDto.spotName + " " + this.shareBoardDto.spotAddress;
+            document.getElementById("location").value = this.shareBoardDto.spotName + " " + this.shareBoardDto.spotAddress;
 
             this.moveCenter(this.shareBoardDto.x, this.shareBoardDto.y);
           },
