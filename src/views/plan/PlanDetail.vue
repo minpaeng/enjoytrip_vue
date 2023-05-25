@@ -2,73 +2,102 @@
   <div id="outer" style="margin-left: auto; margin-right: auto; margin-top: 100px">
     <b-row class="text-center">
       <div class="col m-5">
-        <h1
-          style="
-            font-weight: bold;
-            text-decoration-line: underline;
-            text-decoration-thickness: 6px;
-            text-decoration-color: rgb(189, 201, 255);
-          "
-        >
-          여행 계획
-        </h1>
+        <h1 style="font-weight: bold; text-decoration-line: underline; text-decoration-thickness: 6px; text-decoration-color: rgb(189, 201, 255)">여행 계획</h1>
       </div>
     </b-row>
 
-    <div class="row" style="margin-left: auto;">
+    <div class="row" style="margin-left: auto">
       <div class="col-md-6 d-flex flex-column align-items-end">
-        <label for="title" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">계획 이름:</label>
-        <input type="text" id="title" name="title" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+        <label for="title" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%">계획 이름:</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value=""
+          disabled
+          oninput="adjustWidth(this)"
+          style="font-family: 'Lobster', sans-serif; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px"
+        /><br />
       </div>
       <div class="col-md-6 d-flex flex-column align-items-start">
-        <label for="startDate" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">출발일: </label>
-        <input type="text" id="startDate" name="startDate" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+        <label for="startDate" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%">출발일: </label>
+        <input
+          type="text"
+          id="startDate"
+          name="startDate"
+          value=""
+          disabled
+          oninput="adjustWidth(this)"
+          style="font-family: 'Lobster', sans-serif; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px"
+        /><br />
       </div>
     </div>
-    <div class="row" style="margin-left: auto;">
+    <div class="row" style="margin-left: auto">
       <div class="col-md-6 d-flex flex-column align-items-end">
-        <label for="endDate" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">도착일:</label>
-        <input type="text" id="endDate" name="endDate" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+        <label for="endDate" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%">도착일:</label>
+        <input
+          type="text"
+          id="endDate"
+          name="endDate"
+          value=""
+          disabled
+          oninput="adjustWidth(this)"
+          style="font-family: 'Lobster', sans-serif; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px"
+        /><br />
       </div>
       <div class="col-md-6 d-flex flex-column align-items-start">
-        <label for="userId" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%;">작성자:</label>
-        <input type="text" id="userId" name="userId" value="" disabled oninput="adjustWidth(this)" style="font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+        <label for="userId" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: right; margin-right: 25%">작성자:</label>
+        <input
+          type="text"
+          id="userId"
+          name="userId"
+          value=""
+          disabled
+          oninput="adjustWidth(this)"
+          style="font-family: 'Lobster', sans-serif; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px"
+        /><br />
       </div>
     </div>
-    <div class="row" style="margin-left: auto;">
+    <div class="row" style="margin-left: auto">
       <div class="col-md-12">
-        <label for="memo" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: center; margin-right: 30%;">내용:</label>
-        <input type="text" id="memo" name="memo" value="" disabled style="width: 40%; font-family: 'Lobster', sans-serif; font-weight: bold; font-size: 30px; color: #333; background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 10px;"><br>
+        <label for="memo" class="text-wrapper" style="color: black; font-size: 20px; display: block; text-align: center; margin-right: 30%">내용:</label>
+        <input
+          type="text"
+          id="memo"
+          name="memo"
+          value=""
+          disabled
+          style="
+            width: 40%;
+            font-family: 'Lobster', sans-serif;
+            font-size: 30px;
+            color: #333;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+          "
+        /><br />
       </div>
     </div>
 
     <b-row class="text-center">
       <div class="col m-5">
-        <h1
-          style="
-            font-weight: bold;
-            text-decoration-line: underline;
-            text-decoration-thickness: 6px;
-            text-decoration-color: rgb(189, 201, 255);
-          "
-        >
-          타임라인
-        </h1>
+        <h1 style="font-weight: bold; text-decoration-line: underline; text-decoration-thickness: 6px; text-decoration-color: rgb(189, 201, 255)">타임라인</h1>
       </div>
     </b-row>
 
-    <div class="timeline" style = "margin-top: 20px">
+    <div class="timeline" style="margin-top: 20px">
       <div v-for="(attraction, index) in attractions" :key="index" :class="['container', index % 2 === 0 ? 'left' : 'right']">
         <div class="content">
           <div class="image-container" v-if="index % 2 === 0">
-            <img :id="'rightImg-' + index" :src="attraction.firstImage" width="300px" style = "border-radius: 50%;" />
+            <img :id="'rightImg-' + index" :src="attraction.firstImage" width="300px" style="border-radius: 50%" />
           </div>
           <div class="text-container">
-            <p class ="text-wrapper" style ="font-size: 30px;">{{ attraction.title }}</p>
-            <p class = "text-wrapper" style="font-size: 12px">{{ attraction.addr1 }}</p>
+            <p class="text-wrapper" style="font-size: 30px">{{ attraction.title }}</p>
+            <p class="text-wrapper" style="font-size: 12px">{{ attraction.addr1 }}</p>
           </div>
           <div class="image-container" v-if="index % 2 !== 0">
-            <img id="rightImg" :src="attraction.firstImage" width="300px" style = "border-radius: 50%;"/>
+            <img id="rightImg" :src="attraction.firstImage" width="300px" style="border-radius: 50%" />
           </div>
         </div>
       </div>
@@ -78,7 +107,8 @@
 
 <style>
 .text-wrapper {
-  color: white; font-family: 'Lobster', cursive;
+  color: white;
+  font-family: "Jua", cursive;
 }
 /* 
 .bordered-container {
@@ -126,7 +156,7 @@ body {
 
 /* The actual timeline (the vertical ruler) */
 .timeline::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 6px;
   background-color: black;
@@ -146,13 +176,13 @@ body {
 
 /* The circles on the timeline */
 .container::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 25px;
   height: 25px;
   right: -12px;
   background-color: white;
-  border: 4px solid #FF9F55;
+  border: 4px solid #ff9f55;
   top: 15px;
   border-radius: 50%;
   z-index: 1;
@@ -165,7 +195,7 @@ body {
 
 /* Place the container to the right */
 .right {
-  left: 50.6%
+  left: 50.6%;
 }
 
 /* Add arrows to the left container (pointing right) */
@@ -211,7 +241,7 @@ body {
   justify-content: space-between;
 }
 
-.image-container{
+.image-container {
   flex: 1;
   padding: 0 5px;
 }
@@ -223,19 +253,19 @@ body {
 
 /* Media queries - Responsive timeline on screens less than 600px wide */
 @media screen and (max-width: 600px) {
-/* Place the timelime to the left */
+  /* Place the timelime to the left */
   .timeline::after {
     left: 31px;
   }
 
-/* Full-width containers */
+  /* Full-width containers */
   .container {
     width: 100%;
     padding-left: 70px;
     padding-right: 25px;
   }
 
-/* Make sure that all arrows are pointing leftwards */
+  /* Make sure that all arrows are pointing leftwards */
   .container::before {
     left: 60px;
     border: medium solid black;
@@ -243,12 +273,13 @@ body {
     border-color: transparent white transparent transparent;
   }
 
-/* Make sure all circles are at the same spot */
-  .left::after, .right::after {
+  /* Make sure all circles are at the same spot */
+  .left::after,
+  .right::after {
     left: 15px;
   }
 
-/* Make all right containers behave like the left ones */
+  /* Make all right containers behave like the left ones */
   .right {
     left: 0%;
   }
@@ -262,13 +293,17 @@ body {
 }
 </style>
 
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
+</style>
+
 <script>
-import {apiInstance} from "@/api/index";
+import { apiInstance } from "@/api/index";
 
 export default {
   name: "PlanDetail",
-  components: {
-  },
+  components: {},
   data() {
     return {
       id: null,
@@ -276,8 +311,7 @@ export default {
       attractions: [],
     };
   },
-  created() {
-  },
+  created() {},
   mounted() {
     this.id = this.$route.params.no;
     this.getPlanDetail();
@@ -285,17 +319,16 @@ export default {
   methods: {
     async getPlanDetail() {
       try {
-        let response = await apiInstance().get(
-          `http://localhost/api/plan/${this.id}`
-        );
+        let response = await apiInstance().get(`http://localhost/api/plan/${this.id}`);
         this.planDto = response.data.planAttractionDto;
         console.log(this.planDto);
         this.attractions = this.planDto.attractionList;
         console.log(this.attractions);
-        for(let i = 0; i < this.attractions.length; i++){
-          if (this.attractions[i].firstImage === ''){
-            this.attractions[i].firstImage = "https://www.pharmaceutical-business-review.com/wp-content/themes/goodlife-wp-child/assets/img/no_image_available.jpg";
-          }          
+        for (let i = 0; i < this.attractions.length; i++) {
+          if (this.attractions[i].firstImage === "") {
+            this.attractions[i].firstImage =
+              "https://www.pharmaceutical-business-review.com/wp-content/themes/goodlife-wp-child/assets/img/no_image_available.jpg";
+          }
         }
 
         console.log(this.planDto);

@@ -55,7 +55,7 @@
               <span @click="toggleLike" :class="{ 'heart-icon': true, liked: liked }">
                 <font-awesome-icon :icon="[liked ? 'fas' : 'far', 'heart']" />
               </span>
-              <span> 좋아요: {{ likeCount }}</span>
+              <span> 좋아요 {{ likeCount }}</span>
             </div>
 
             <label for="content" class="text-wrapper" style="color: black; font-size: 20px; display: block">내용:</label>
@@ -94,7 +94,7 @@
           disabled
           style="
             font-size: 20px;
-            font-family: 'Lobster', sans-serif;
+            font-family: Jua;
             font-weight: bold;
             font-size: 20px;
             color: #333;
@@ -115,6 +115,9 @@
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700");
+@import url("https://fonts.googleapis.com/css?family=Jua:400");
+
 .share-button,
 .share-button:focus {
   background-color: rgba(69, 113, 180, 0.89);
@@ -167,7 +170,7 @@
 
 .text-wrapper {
   color: white;
-  font-family: "Lobster", sans-serif, bold;
+  font-family: "Nanum Gothic Coding", sans-serif, bold;
 }
 
 .prev[data-v-05517ad0] {
