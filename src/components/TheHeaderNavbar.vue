@@ -1,23 +1,15 @@
 <template>
   <header>
     <b-navbar fixed="top" toggleable="lg" type="dark" variant="primary" class="header-navbar">
-      <b-navbar-brand to="/" id="nav-title"
-        ><font-awesome-icon :icon="['fas', 'suitcase']" /> EnjoyTrip</b-navbar-brand
-      >
+      <b-navbar-brand to="/" id="nav-title"><img src="@/assets/img/logo.png" height="70px" /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/planboard?pgno=1"
-            ><font-awesome-icon :icon="['fas', 'pen']" /> 여행 계획</b-nav-item
-          >
-          <b-nav-item href="/shareboard?pgno=1"
-            ><font-awesome-icon :icon="['fas', 'people-arrows']" /> 후기 공유</b-nav-item
-          >
-          <b-nav-item to="/infoboard?pgno=1&key=&word="
-            ><font-awesome-icon :icon="['fas', 'clipboard']" /> 자유 게시판</b-nav-item
-          >
+          <b-nav-item to="/planboard?pgno=1"><font-awesome-icon :icon="['fas', 'pen']" /> 여행 계획</b-nav-item>
+          <b-nav-item href="/shareboard?pgno=1"><font-awesome-icon :icon="['fas', 'people-arrows']" /> 후기 공유</b-nav-item>
+          <b-nav-item to="/infoboard?pgno=1&key=&word="><font-awesome-icon :icon="['fas', 'clipboard']" /> 자유 게시판</b-nav-item>
         </b-navbar-nav>
 
         <!-- after login -->
@@ -37,12 +29,8 @@
             <template #button-content>
               <b-icon icon="people"></b-icon>
             </template>
-            <b-dropdown-item :to="{ name: 'join' }" class="link"
-              ><b-icon icon="person-circle"></b-icon> 회원가입
-            </b-dropdown-item>
-            <b-dropdown-item :to="{ name: 'login' }" class="link"
-              ><b-icon icon="key"></b-icon> 로그인
-            </b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'join' }" class="link"><b-icon icon="person-circle"></b-icon> 회원가입 </b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'login' }" class="link"><b-icon icon="key"></b-icon> 로그인 </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
